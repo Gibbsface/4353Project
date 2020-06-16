@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Gibbsface/4353Project#readme",
   "dependencies": {
-    "create-react-app": "^3.4.1"
+    "create-react-app": "^3.4.1",
+    "express": "^4.17.1"
   }
 }
