@@ -27,7 +27,7 @@ export class Register extends React.Component {
                         required
                       />
                       <span class="icon is-small is-left">
-                        <i class="fas fa-user"></i>
+                        <i class="fa fa-user"></i>
                       </span>
                     </div>
                   </div>
