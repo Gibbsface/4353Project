@@ -1,6 +1,6 @@
 import React from "react";
-/* import "./style.css"; */
 import { Link } from "react-router-dom";
+import "react-bulma-components/dist/react-bulma-components.min.css";
 
 export class Login extends React.Component {
   constructor(props) {
@@ -9,32 +9,64 @@ export class Login extends React.Component {
 
   render() {
     return (
-      <div className="base-container" ref={this.props.containerRef}>
-        <div className="header">Login</div>
-        <div className="content">
-          <div className="form">
-            <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <input type="text" name="username" placeholder="Username" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input type="password" name="password" placeholder="Password" />
+      <section class="hero is-fullheight">
+        <div class="hero-body">
+          <div class="container">
+            <div class="columns is-centered">
+              <div class="column is-3-desktop">
+                <form action="" class="box">
+                  <div class="field">
+                    <label for="" class="label">
+                      Username
+                    </label>
+                    <div class="control has-icons-left">
+                      <input
+                        type="username"
+                        placeholder="Username"
+                        class="input"
+                        required
+                      />
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label for="" class="label">
+                      Password
+                    </label>
+                    <div class="control has-icons-left">
+                      <input
+                        type="password"
+                        placeholder="*******"
+                        class="input"
+                        required
+                      />
+                      <span class="icon is-small is-left">
+                        <i class="fa fa-lock"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="content has-text-centered">
+                    <button
+                      class="button is-link"
+                      style={{ marginTop: "1em", marginBottom: 0 }}
+                    >
+                      Login
+                    </button>
+                    <p style={{ marginTop: "1em", marginBottom: 0 }}>
+                      Don't have an Account?
+                    </p>
+                    <Link to="/register" style={{ listStyle: "none" }}>
+                      <li>Register Here</li>
+                    </Link>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-        <div className="footer">
-          <button type="button" className="btn">
-            Login
-          </button>
-        </div>
-        <div className="footer">
-          <p>Don't have an Account? &nbsp;</p>
-          <Link to="/register">
-            <li>Register Here</li>
-          </Link>
-        </div>
-      </div>
+      </section>
     );
   }
 }
