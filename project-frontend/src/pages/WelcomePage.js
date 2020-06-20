@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import Login from "../components/Login.js"
 import Register from "../components/Register.js"
-//import { Link } from "react-router-dom";
 import "react-bulma-components/dist/react-bulma-components.min.css";
 import "../App.css";
 

@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-//import { Link } from "react-router-dom";
 import "react-bulma-components/dist/react-bulma-components.min.css";
 
 export class Login extends Component {

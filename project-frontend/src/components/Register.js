@@ -1,5 +1,4 @@
 import React from "react";
-//import { Link } from "react-router-dom";
 import "react-bulma-components/dist/react-bulma-components.min.css";
 
 export class Register extends React.Component {
