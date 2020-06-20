@@ -7,14 +7,18 @@ class App extends Component {
   
   state = {
     isLoggedIn: false,
-    registerToggle: true
+  }
+
+  login = () => {
+    this.setState({isLoggedIn: true});
+    console.log("logging in...")
   }
 
   
   render() {
-    return this.props.isLoggedIn 
-      ? <HomePage  /> 
-      : <WelcomePage registerToggle={this.state.registerToggle}/>
+    return this.state.isLoggedIn 
+      ? <HomePage /> 
+      : <WelcomePage login={this.login}/>
   }
 }
 

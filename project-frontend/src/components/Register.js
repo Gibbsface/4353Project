@@ -59,11 +59,11 @@ export class Register extends React.Component {
           </div>
         </div>
         <div className="field has-text-centered">
-          <button className="button is-link mt-2">
+          <button className="button is-link mt-2" onClick={this.props.login}>
             Register
           </button>
-            <p className="mt-2">Already have an Account?</p>
-          <button className="button">
+            <p className="mt-2 ">Already have an Account?</p>
+          <button className="button" onClick={this.props.rToggle}>
             <p>Login here</p>
           </button>
         </div>
