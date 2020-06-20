@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-//import { Link } from "react-router-dom";
 import "react-bulma-components/dist/react-bulma-components.min.css";
 
 export class Login extends Component {
@@ -43,16 +42,17 @@ export class Login extends Component {
           </div>
         </div>
         <div className="field has-text-centered">
-          <button className="button is-link mt-2">
+          <button className="button is-link mt-2"  onClick={this.props.login}>
             Login
           </button>
-            <p className="mt-2">Don't have an Account?</p>
-          <button className="button">
-            <p>Register Here</p>
-          </button>
         </div>
+        <p className="mt-2 has-text-centered">Don't have an Account?</p>
+      <button className="button has-text-centered" onClick={this.props.rToggle}>
+        <p>Register Here</p>
+      </button>
       </form>
-             
+      
+    
     );
   }
 }
