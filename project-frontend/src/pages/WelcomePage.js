@@ -5,6 +5,9 @@ import "react-bulma-components/dist/react-bulma-components.min.css";
 import "../App.css";
 
 class WelcomePage extends Component {
+  constructor(props){
+    super(props)
+  }
 
   state = {
     isRegistering: false

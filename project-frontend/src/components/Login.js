@@ -2,6 +2,9 @@ import React, {Component} from "react";
 import "react-bulma-components/dist/react-bulma-components.min.css";
 
 export class Login extends Component {
+  constructor(props) {
+    super(props);
+  }
 
   render() {
     return (    
