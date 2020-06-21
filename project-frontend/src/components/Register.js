@@ -2,9 +2,6 @@ import React from "react";
 import "react-bulma-components/dist/react-bulma-components.min.css";
 
 export class Register extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (
