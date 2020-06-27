@@ -1,12 +1,14 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 const multer = require('multer');
+const cookieparser = require('cookie-parser');
 let form_parser = multer();
 
 const {fuel_quote, history, login, register, profile_info, profile_update} = require('./endpoints');
 
 let app = express();
 
+app.use(cookieparser())
 app.use(bodyparser.json());
 app.use(form_parser.none())
 app.use(express.static(`project-frontend/build/`));
