@@ -13,8 +13,6 @@ const hardcode_creds = {
 
 const endpoint = function (request, response) {
     let { username, password } = request.body;
-    console.log(username, password)
-    console.log(request.cookies)
     if (request.body.username == hardcode_creds.username && passwordHash.verify(password, hardcode_creds.hashPass)) {
         let token = jwt.sign({data: username}, "secret", { expiresIn: 60 * 60 * 24 })
         response.status(200);
@@ -24,7 +22,7 @@ const endpoint = function (request, response) {
         response.send(JSON.stringify({
             success: true,
             data: {
-                token  // generate token that expires in 1 day
+                token
             }
         }))
     } else {
