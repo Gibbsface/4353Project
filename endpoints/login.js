@@ -12,13 +12,17 @@ const hardcode_creds = {
 }
 
 const endpoint = function (request, response) {
+    console.log(request.body);
+    console.log("login endpoint")
+    console.log("in login endpoint")
     let { username, password } = request.body;
     if (request.body.username == hardcode_creds.username && passwordHash.verify(password, hardcode_creds.hashPass)) {
-        let token = jwt.sign({data: username}, "secret", { expiresIn: 60 * 60 * 24 })
+        let token = jwt.sign({data: {username:username}}, "secret", { expiresIn: 60 * 60 * 24 })
         response.status(200);
         response.cookie('token', token, {
             maxAge: 1000*60*60*24
         })
+        response.contentType("application/json");
         response.send(JSON.stringify({
             success: true,
             data: {
