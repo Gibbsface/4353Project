@@ -3,7 +3,40 @@ import "react-bulma-components/dist/react-bulma-components.min.css";
 
 export class History extends React.Component {
 
+  constructor(props){
+    super(props)
+    this.state = {entries: []}
+  }
+
+  componentDidMount(){
+    fetch("http://localhost:8080/api/history",{
+      method:'get',
+      credentials:'include',
+      mode:'cors'
+    }).then(res=>{
+      res.json().then(result=>{
+        if(result.success){
+          this.setState({entries:result.data})
+        }
+      })
+    })
+  }
+
   render() {
+    let history;
+    if(this.state.entries.length==0){
+      history = null
+    }else{
+      history = this.state.entries.map(entry=>{
+        return (<tbody>
+          <th>{entry.gallons}</th>
+          <th>{entry.address}</th>
+          <th>{entry.date}</th>
+          <th>{entry.suggestedPrice}</th>
+          <th>{entry.totalPrice}</th>
+        </tbody>)
+      })
+    }
     return (
       <div className="container">
           <div
@@ -22,16 +55,9 @@ export class History extends React.Component {
                       <th>Total Price</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <th>1</th>
-                      <th>1234 Example Dr</th>
-                      <th>6/18/2020</th>
-                      <th>$1</th>
-                      <th>$1</th>
-                    </tr>
-                  </tbody>
+                  {history}
                 </table>
+                {history==null?<p>No entries</p>:""}
               </div>
             </div>
           </div>
