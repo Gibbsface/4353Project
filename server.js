@@ -6,7 +6,7 @@ const cors = require('cors');
 const authMiddleware = require('./middleware/authentication_middleware');
 let form_parser = multer();
 
-const {fuel_quote, history, login, register, profile_info, profile_update} = require('./endpoints');
+const {fuel_quote, quote_history, login, register, profile_info, profile_update} = require('./endpoints');
 
 let app = express();
 
@@ -28,7 +28,7 @@ app.post('/api/profile_update',profile_update)
 
 app.get('/api/profile_info', profile_info)
 
-app.get('/api/quote_history', history);
+app.get('/api/quote_history', quote_history);
 
 app.get('/api/fuel_quote', fuel_quote);
 
