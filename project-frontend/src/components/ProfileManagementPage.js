@@ -244,13 +244,66 @@ const stateList = [
 ]
 
 class ProfileManagementPage extends React.Component {
+    constructor(props){
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.state = {
+            fullName:"",
+            addr1:"",
+            addr2:"",
+            city:"",
+            state:"",
+            zip:""
+        }
+    }
+
+    onChange(e){
+        let input = e.target;
+        e.persist();
+        // console.log(e);
+        console.log(input.name);
+        this.setState({[input.name]:input.value});
+        console.log(this.state);
+    }
+
+    handleSubmit(e){
+        e.preventDefault();
+        console.log("submitting");
+        console.log(this.state);
+        fetch("http://localhost:8080/api/profile_update",{
+            body:JSON.stringify(this.state),
+            headers:new Headers({
+                "Content-Type":"application/json",
+            }),
+            method:'post',
+            mode:"cors",
+            credentials:'include'
+        }).then(resp=>{
+            console.log(resp.body);
+        })
+    }
+
+    componentDidMount(){
+        // query api and set appropriate fields
+        fetch("http://localhost:8080/api/profile_info",{
+            method:'get',
+            mode:'cors',
+            credentials:"include"
+        }).then(async e=>{
+            let result = await e.json();
+            if(result.success){
+                this.setState(result.data)
+            }
+        })
+    }
 
     render() {
         return (
-            <div className="container">
+            <div className="container" >
                 <div className="columns is-centered">
                     <div className="column is-3-desktop">
-                        <form action="" className="box">
+                        <form className="box" onSubmit = {this.handleSubmit}>
                             <div className="field">
                                 <label className="label">
                                     Full Name
@@ -258,10 +311,13 @@ class ProfileManagementPage extends React.Component {
                                 <div className="control has-icons-left">
                                     <input
                                         type="text"
+                                        id="fullName"
+                                        name="fullName"
                                         placeholder="Jeff Jefferson"
                                         className="input"
                                         required
                                         maxLength="50"
+                                        onChange={this.onChange}
                                     />
                                     <span className="icon is-small is-left">
                                         <i className="fa fa-id-card"></i>
@@ -274,9 +330,12 @@ class ProfileManagementPage extends React.Component {
                                     <input
                                         type="text"
                                         placeholder="1234 Example Dr"
+                                        id="addr1"
+                                        name="addr1"
                                         className="input"
                                         required
                                         maxLength="100"
+                                        onChange={this.onChange}
                                     />
                                     <span className="icon is-small is-left">
                                     <i className="fa fa-map-marker"></i>
@@ -291,8 +350,11 @@ class ProfileManagementPage extends React.Component {
                                     <input
                                         type="text"
                                         className="input"
+                                        name="addr2"
+                                        id="addr2"
                                         placeholder="Apartment, suite, building etc."
                                         maxLength="100"
+                                        onChange={this.onChange}
                                     />
                                     <span className="icon is-small is-left">
                                     <i className="fa fa-map-marker"></i>
@@ -306,10 +368,13 @@ class ProfileManagementPage extends React.Component {
                                 <div className="control has-icons-left">
                                     <input
                                         type="text"
+                                        id="city"
+                                        name="city"
                                         placeholder="Houston"
                                         className="input"
                                         required
                                         maxLength="100"
+                                        onChange={this.onChange}
                                     />
                                     <span className="icon is-small is-left">
                                         <i className="fa fa-map-marker"></i>
@@ -321,10 +386,10 @@ class ProfileManagementPage extends React.Component {
                                     State
                                 </label>
                                 <div className="select">
-                                    <select required>
+                                    <select required id="state" name="state" onChange={this.onChange}>
                                     {
                                         stateList.map(e=>{
-                                            return (<option value={e.abbreviation}>{e.name}</option>)
+                                            return (<option value={e.abbreviation} key={e.abbreviation}>{e.name}</option>)
                                         })
                                     }
                                     </select>
@@ -342,10 +407,13 @@ class ProfileManagementPage extends React.Component {
                                     <input
                                         type="text"
                                         placeholder="01234"
+                                        id="zip"
+                                        name="zip"
                                         className="input"
                                         required
                                         maxLength="9"
                                         minLength="5"
+                                        onChange={this.onChange}
                                     />
                                     <span className="icon is-small is-left">
                                     <i className="fa fa-map-marker"></i>

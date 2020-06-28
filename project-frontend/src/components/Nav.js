@@ -14,22 +14,22 @@ class Nav extends Component {
 
   render() {
     return(
-      <nav class="navbar">
-        <div class="navbar-menu">
-          <div class="navbar-start">
-            <a id="home" class="navbar-item" onClick={this.click}>
+      <nav className="navbar">
+        <div className="navbar-menu">
+          <div className="navbar-start">
+            <a id="home" className="navbar-item" onClick={this.click}>
                 Home
             </a>
           </div>
 
-          <div class="navbar-end">
-            <a id="profile" class="navbar-item" onClick={this.click}>
+          <div className="navbar-end">
+            <a id="profile" className="navbar-item" onClick={this.click}>
                 Profile
             </a>
-            <a id="quote" class="navbar-item" onClick={this.click}>
+            <a id="quote" className="navbar-item" onClick={this.click}>
               Order
             </a>
-            <a id="history" class="navbar-item" onClick={this.click}>
+            <a id="history" className="navbar-item" onClick={this.click}>
                 History
             </a>
           </div>
