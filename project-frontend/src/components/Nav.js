@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "react-bulma-components/dist/react-bulma-components.min.css";
+import "../App.css"
 
 class Nav extends Component {
   constructor(props){
@@ -13,26 +14,24 @@ class Nav extends Component {
 
   render() {
     return(
-      <nav className="navbar is-black">
-        <div className="navbar-menu">
-          <div className="navbar-start">
-            <button id="home" className="navbar-item" onClick={this.click}>
-                HOME
-            </button>
+      <nav class="navbar">
+        <div class="navbar-menu">
+          <div class="navbar-start">
+            <a id="home" class="navbar-item" onClick={this.click}>
+                Home
+            </a>
           </div>
 
-          <div className="navbar-end">
-          <button id="profile" className="navbar-item" onClick={this.click}>
-              Profile
-          </button>
-
-          <button id="quote" className="navbar-item" onClick={this.click}>
+          <div class="navbar-end">
+            <a id="profile" class="navbar-item" onClick={this.click}>
+                Profile
+            </a>
+            <a id="quote" class="navbar-item" onClick={this.click}>
               Order
-          </button>
-
-          <button id="history" className="navbar-item" onClick={this.click}>
-              History
-          </button>
+            </a>
+            <a id="history" class="navbar-item" onClick={this.click}>
+                History
+            </a>
           </div>
         </div>
       </nav>

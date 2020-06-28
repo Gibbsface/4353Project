@@ -2,11 +2,13 @@
 To run you need to do the following:
 * Download Node.js
 * `cd project-frontend`
-* For the first time after cloning project run `npm install` and for bulma `npm install bulma` and `npm install react-bulma-components`  
+* For the first time after cloning project run `npm install`
 * `npm start`
 
 
 * What the site currently looks like
-* Welcome Page: https://gyazo.com/94147a3d36858a41498e1361af36fbb0
-* Login Page: https://gyazo.com/fe1acb4cf02a4df8d812860312baa77d
-* Register Page: https://gyazo.com/2096bdb1c13bcbc211b5fda608bbedaa
+* Login Page: https://i.imgur.com/EAw7ah5.jpg
+* Register Page: https://i.imgur.com/hCbDtxR.jpg
+* Profile Page: https://i.imgur.com/JrbBGLX.jpg
+* Fuel Quote Order Page: https://i.imgur.com/KGCrmti.jpg
+* Fuel Quote History Page: https://i.imgur.com/wnNdInt.jpg
