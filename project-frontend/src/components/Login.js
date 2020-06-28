@@ -31,7 +31,7 @@ export class Login extends Component {
       password: this.state.password
     }))
     xhttp.onreadystatechange = (e)=>{
-      if(xhttp.readyState == XMLHttpRequest.DONE){
+      if(xhttp.readyState === XMLHttpRequest.DONE){
         console.log(xhttp.response);
         this.props.login();
       }
