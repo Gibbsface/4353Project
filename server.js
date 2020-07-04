@@ -4,41 +4,45 @@ const multer = require('multer');
 const cookieparser = require('cookie-parser');
 const cors = require('cors');
 const authMiddleware = require('./middleware/authentication_middleware');
-const mysql = require("mysql");
+//const mysql = require("mysql");
 let form_parser = multer();
 
 const {fuel_quote, quote_history, login, register, profile_info, profile_update} = require('./endpoints');
 
 let app = express();
 
-let connection = mysql.createConnection({
+/* 
+let connection = mysql.createPool({
+  connectionLimit: 50,
   host: "localhost",
   user: "root",
   password: "",
   database: "sql_database",
 });
 
-connection.connect(function (error) {
-  if (!!error) {
-    console.log("Error: Cannot connect to database");
-  } else {
-    console.log("Connected to database");
-  }
-});
-
-//This currently doesnt work, I can connect to the database but something goes wrong when trying to access the query on line 36.
-app.get("/", function (request, response) {
-  connection.query("SELECT * FROM user_credentials", function (
-    error,
-    rows,
-    fields
-  ) {});
-  if (!!error) {
-    console.log("Error in Query");
-  } else {
-    console.log("Successful Query");
-  }
-});
+app.get("/", function (req, resp) {
+  connection.getConnection(function (error, tempCont) {
+    //tempCont is temporary connection variable
+    if (!!error) {
+      tempCont.release();
+      console.log("Error: Cannot connect to database");
+    } else {
+      console.log("Connected to database");
+      tempCont.query("SELECT * FROM user_credentials", function (
+        error,
+        rows,
+        fields
+      ) {
+        if (!!error) {
+          tempCont.release();
+          console.log("Error in Query");
+        } else {
+          resp.json(rows);
+        }
+      });
+    }
+  });
+}); */
 
 app.use(cors({
     origin: true,
