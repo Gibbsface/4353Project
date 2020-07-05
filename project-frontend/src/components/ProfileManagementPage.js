@@ -249,13 +249,27 @@ class ProfileManagementPage extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
         this.state = {
-            fullName:"",
-            addr1:"",
-            addr2:"",
-            city:"",
-            state:"",
-            zip:""
+            profile: {
+                fullName:"",
+                addr1:"",
+                addr2:"",
+                city:"",
+                state:"",
+                zip:""
+            },
         }
+    }
+
+    componentDidMount(){
+        fetch("http://localhost:8080/api/profile_info",{
+            method:'get',
+            credentials:"include",
+            mode:'cors',
+        }).then((res) => res.json()).then((profile) =>
+                this.setState({ profile }, () =>
+                console.log("Profile fetched...", profile)
+                )
+            );
     }
 
     onChange(e){
@@ -277,20 +291,6 @@ class ProfileManagementPage extends React.Component {
             credentials:'include'
         }).then(resp=>{
             window.location.reload()
-        })
-    }
-
-    componentDidMount(){
-        // query api and set appropriate fields
-        fetch("http://localhost:8080/api/profile_info",{
-            method:'get',
-            mode:'cors',
-            credentials:"include"
-        }).then(async e=>{
-            let result = await e.json();
-            if(result.success){
-                this.setState(result.data)
-            }
         })
     }
 
