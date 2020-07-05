@@ -4,6 +4,31 @@ import History from '../components/FuelQuoteHistory';
 import Profile from '../components/ProfileManagementPage';
 import Nav from '../components/Nav';
 
+function createCookie(name,value,days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	}
+	else var expires = "";
+	document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+
+function eraseCookie(name) {
+	createCookie(name,"",-1);
+}
+
 class HomePage extends Component {
     constructor(props){
         super(props);
@@ -26,6 +51,10 @@ class HomePage extends Component {
                 return <Profile />
             case "history":
                 return <History />
+            case "signout":
+                eraseCookie("token");
+                window.location.reload(false);
+                return
             default:
                 return <div></div>
         }
@@ -44,24 +73,6 @@ class HomePage extends Component {
             </div>
         );
     }
-
-
-        // <Router>
-        //     <Route path="/" exact>
-        //         <div>
-        //             <p>Home Page</p>
-        //         </div>
-        //     </Route>
-        //     <Route path="/fuelquote">
-        //         <FuelQuote/>
-        //     </Route>
-        //     <Route path="/history">
-        //         <FuelQuoteHistory/>
-        //     </Route>
-        //     <Route path="/profilemanagement">
-        //         <ProfileManagementPage/>
-        //     </Route>
-        // </Router>
 }
 
 export default HomePage;

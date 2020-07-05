@@ -260,10 +260,7 @@ class ProfileManagementPage extends React.Component {
 
     onChange(e){
         let input = e.target;
-        e.persist();
-        console.log(input.name);
         this.setState({[input.name]:input.value});
-        console.log(this.state);
     }
 
     handleSubmit(e){
@@ -279,7 +276,7 @@ class ProfileManagementPage extends React.Component {
             mode:"cors",
             credentials:'include'
         }).then(resp=>{
-            console.log(resp.body);
+            window.location.reload()
         })
     }
 
