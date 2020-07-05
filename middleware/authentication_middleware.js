@@ -10,14 +10,11 @@ const middleware = function (req, res, next) {
     console.log(req.headers);
     console.log(req.path);
     if (!req.path.startsWith("/api") || req.path == '/api/login' || req.path == '/api/register') {
-        console.log("nexting to login/register/non-api endpoint")
         next();
         return;
     }
     if (!req.cookies.token) {
         // no token cookie - invalid
-        console.log('no token');
-        res.status(401);
         res.send(JSON.stringify({
             success: false,
             data: 'No token'
@@ -37,7 +34,6 @@ const middleware = function (req, res, next) {
         }
     } catch (e) {
         // catch token invalid error 
-        res.status(401);
         res.send(JSON.stringify({
             success: false,
             data: 'Invalid token'
