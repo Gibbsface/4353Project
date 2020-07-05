@@ -38,7 +38,7 @@ export class History extends React.Component {
                     <th>Gallons Requested</th>
                     <th>Delivery Address</th>
                     <th>Delivery Date</th>
-                    <th>Suggested Price</th>
+                    <th>Suggested Price/Gallon</th>
                     <th>Total Price</th>
                   </tr>
                 </thead>
