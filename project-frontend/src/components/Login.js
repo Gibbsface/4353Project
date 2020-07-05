@@ -30,7 +30,8 @@ export class Login extends Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      wrongPassword: false
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -58,8 +59,13 @@ export class Login extends Component {
     }))
     xhttp.onreadystatechange = (e) => {
       if (xhttp.readyState == XMLHttpRequest.DONE) {
-        console.log(xhttp.response);
-        this.props.login();
+        let body = JSON.parse(xhttp.response);
+        if(body.success){
+          this.props.login();
+        }
+        else{
+          this.setState({wrongPassword:true});
+        }
       }
     }
   }
@@ -100,6 +106,9 @@ export class Login extends Component {
               <i className="fa fa-lock"></i>
             </span>
           </div>
+        </div>
+        <div className="has-text-centered" style={{display: this.state.wrongPassword?"inline":"none"}}>
+          <p> Wrong username/password </p>
         </div>
         <div className="field has-text-centered">
           <input type="submit" value="Login" className="button is-link mt-2" />
