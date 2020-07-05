@@ -75,6 +75,7 @@ export class FuelQuote extends Component {
                     name="addr"
                     value={this.state.addr}
                     onChange={this.onChange}
+                    disabled
                   />
                   <span className="icon is-small is-left">
                     <i className="fa fa-lock"></i>
