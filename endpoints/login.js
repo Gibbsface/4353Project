@@ -27,11 +27,9 @@ const endpoint = function (request, response) {
             }
         }))
     } else {
-        response.status(400);
         response.send(JSON.stringify({
             success: false,
-            data: {
-            }
+            data: null
         }))
     }
 }
