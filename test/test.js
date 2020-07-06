@@ -33,6 +33,7 @@ describe("Login", async () => {
         assert(!body.success && body.data==null)
     })
 })
+
 describe("Register", async ()=>{
     it("should allow a new, unique user to register", async ()=>{
         let result = await got("http://localhost:8080/api/register",{
@@ -95,6 +96,7 @@ describe("Register", async ()=>{
         assert(!body.success && (body.data==="Username exists"))
     })
 })
+
 describe("Authentication Middleware", ()=>{
     it("should not allow api requests without token", async ()=>{
         let result = await got("http://localhost:8080/api/quote_history",{
@@ -224,6 +226,17 @@ describe("Profile", async () => {
     };
     assert(profile.body != JSON.stringify(notexpectedProfile));
   });
+  it("Should accept a new profile", async () => {
+    let profile = await got("http://localhost:8080/api/profile_update", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        cookie:
+          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+      },
+    });
+    assert(profile.statusCode === 200 && profile.body == "Profile Update Success");
+  })
 });
 
 describe("Fuel Quote", async () => {
