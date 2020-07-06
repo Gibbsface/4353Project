@@ -239,8 +239,6 @@ describe("Fuel Quote", async () => {
     const expectedfuel_quote = {
       price: 100,
     };
-    console.log(fuel_quote.body);
-    console.log(JSON.stringify(expectedfuel_quote));
     assert(fuel_quote.body == JSON.stringify(expectedfuel_quote));
   });
   it("Should not return incorrect fuel quote", async () => {
