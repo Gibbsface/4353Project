@@ -17,24 +17,21 @@ class Nav extends Component {
       <nav className="navbar">
         <div className="navbar-menu">
           <div className="navbar-start">
-            <a id="home" className="navbar-item" onClick={this.click}>
-              Home
-            </a>
+            <button id="home" className="navbar-item" onClick={this.click}>
+                Home
+            </button>
           </div>
 
           <div className="navbar-end">
-            <a id="profile" className="navbar-item" onClick={this.click}>
-              Profile
-            </a>
-            <a id="quote" className="navbar-item" onClick={this.click}>
+            <button id="profile" className="navbar-item" onClick={this.click}>
+                Profile
+            </button>
+            <button id="quote" className="navbar-item" onClick={this.click}>
               Order
-            </a>
-            <a id="history" className="navbar-item" onClick={this.click}>
-              History
-            </a>
-            <a id="signout" className="navbar-item" onClick={this.click}>
-              Sign Out
-            </a>
+            </button>
+            <button id="history" className="navbar-item" onClick={this.click}>
+                History
+            </button>
           </div>
         </div>
       </nav>
