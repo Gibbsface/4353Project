@@ -1,3 +1,4 @@
 node_modules
 project-frontend/node_modules
 project_frontend/build
+.nyc_output
