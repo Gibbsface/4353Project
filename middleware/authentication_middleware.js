@@ -7,8 +7,6 @@ const { request, response } = require('express');
  * @param {Function} next 
  */
 const middleware = function (req, res, next) {
-    console.log(req.headers);
-    console.log(req.path);
     if (!req.path.startsWith("/api") || req.path == '/api/login' || req.path == '/api/register') {
         next();
         return;

@@ -1,6 +1,7 @@
 const assert = require('assert');
 const got = require('got');
 const _ = require('underscore');
+const server = require('../server');
 
 describe("Login", async () => {
     it("should return {success:true, data:some token} for good creds", async () => {
