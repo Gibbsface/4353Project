@@ -266,10 +266,8 @@ class ProfileManagementPage extends React.Component {
             credentials:"include",
             mode:'cors',
         }).then((res) => res.json()).then((profile) =>
-                this.setState({ profile }, () =>
-                console.log("Profile fetched...", profile)
-                )
-            );
+            this.setState({ profile }, () =>
+                console.log("Profile fetched...", profile)));
     }
 
     onChange(e){
@@ -279,19 +277,25 @@ class ProfileManagementPage extends React.Component {
 
     handleSubmit(e){
         e.preventDefault();
-        console.log("submitting");
-        console.log(this.state);
+        const profile_update = {
+            fullName: this.state.fullName,
+            addr1: this.state.addr1,
+            addr2: this.state.addr2,
+            city: this.state.city,
+            state: this.state.state,
+            zip: this.state.zip
+        }
+        console.log("submitting...", profile_update);
         fetch("http://localhost:8080/api/profile_update",{
-            body:JSON.stringify(this.state),
+            body:JSON.stringify(profile_update),
             headers:new Headers({
                 "Content-Type":"application/json",
             }),
             method:'post',
             mode:"cors",
             credentials:'include'
-        }).then(resp=>{
-            window.location.reload()
         })
+        .then(resp=>{window.location.reload()})
     }
 
     render() {
@@ -302,7 +306,7 @@ class ProfileManagementPage extends React.Component {
                         <form className="box" onSubmit = {this.handleSubmit}>
                             <div className="field">
                                 <label className="label">
-                                    Full Name
+                                    Full Name: <em>{this.state.profile.fullName}</em>
                                 </label>
                                 <div className="control has-icons-left">
                                     <input
@@ -321,7 +325,9 @@ class ProfileManagementPage extends React.Component {
                                 </div>
                             </div>
                             <div className="field">
-                                <label className="label">Address 1</label>
+                                <label className="label">
+                                    Address 1: <em>{this.state.profile.addr1}</em>
+                                </label>
                                 <div className="control has-icons-left">
                                     <input
                                         type="text"
@@ -340,7 +346,7 @@ class ProfileManagementPage extends React.Component {
                             </div>
                             <div className="field">
                                 <label className="label">
-                                    Address 2
+                                    Address 2: <em>{this.state.profile.addr2}</em>
                                 </label>
                                 <div className="control has-icons-left">
                                     <input
@@ -359,7 +365,7 @@ class ProfileManagementPage extends React.Component {
                             </div>
                             <div className="field">
                                 <label className="label">
-                                    City
+                                    City: <em>{this.state.profile.city}</em>
                                 </label>
                                 <div className="control has-icons-left">
                                     <input
@@ -379,7 +385,7 @@ class ProfileManagementPage extends React.Component {
                             </div>
                             <div className="field control has-icons-left">
                                 <label className="label">
-                                    State
+                                    State: <em>{this.state.profile.state}</em>
                                 </label>
                                 <div className="select">
                                     <select required id="state" name="state" onChange={this.onChange}>
@@ -397,7 +403,7 @@ class ProfileManagementPage extends React.Component {
                             </div>
                             <div className="field">
                                 <label className="label">
-                                    Zip/Postal Code
+                                    Zip/Postal Code: <em>{this.state.profile.zip}</em>
                                 </label>
                                 <div className="control has-icons-left">
                                     <input
