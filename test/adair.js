@@ -118,3 +118,109 @@ describe("Authentication Middleware", ()=>{
         assert(!body.success && body.data=="Invalid token")
     })
 })
+
+describe("History", async () => {
+  it("Should return expected history", async () => {
+    let history = await got("http://localhost:8080/api/quote_history", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        cookie:
+          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+      },
+    });
+    const expectedHistory = [
+      {
+        username: "test",
+        id: 1,
+        gallonsRequested: "5",
+        deliveryAddress: "0005 Example Dr",
+        deliveryDate: "6/28/2020",
+        suggestedPrice: "1",
+        totalPrice: "5",
+      },
+      {
+        username: "test",
+        id: 2,
+        gallonsRequested: "10",
+        deliveryAddress: "0010 Example St",
+        deliveryDate: "6/30/2020",
+        suggestedPrice: "2",
+        totalPrice: "20",
+      },
+    ];
+    assert(history.body == JSON.stringify(expectedHistory));
+  });
+  it("Should not return incorrect history", async () => {
+    let history = await got("http://localhost:8080/api/quote_history", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        cookie:
+          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+      },
+    });
+    const notexpectedHistory = [
+      {
+        username: "test2",
+        id: 1,
+        gallonsRequested: "5",
+        deliveryAddress: "0005 Example Dr",
+        deliveryDate: "6/28/2020",
+        suggestedPrice: "1",
+        totalPrice: "5",
+      },
+      {
+        username: "test",
+        id: 2,
+        gallonsRequested: "10",
+        deliveryAddress: "0010 Example St",
+        deliveryDate: "6/30/2020",
+        suggestedPrice: "2",
+        totalPrice: "20",
+      },
+    ];
+    assert(history.body != JSON.stringify(notexpectedHistory));
+  });
+});
+
+describe("Profile", async () => {
+  it("Should return expected profile", async () => {
+    let profile = await got("http://localhost:8080/api/profile_info", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        cookie:
+          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+      },
+    });
+    const expectedProfile = {
+      fullName: "Johnny Appleseed",
+      addr1: "123 Apple Way",
+      addr2: "Apt A",
+      city: "Blossom",
+      state: "Virginia",
+      zip: "12345",
+    };
+    assert(profile.body == JSON.stringify(expectedProfile));
+  });
+  it("Should not return incorrect profile", async () => {
+    let profile = await got("http://localhost:8080/api/profile_info", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        cookie:
+          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+      },
+    });
+    const notexpectedProfile = {
+      fullName: "Johnny Lemonseed",
+      addr1: "123 Lemon Way",
+      addr2: "Apt A",
+      city: "Blossom",
+      state: "Virginia",
+      zip: "12345",
+    };
+    assert(profile.body != JSON.stringify(notexpectedProfile));
+  });
+});
