@@ -225,3 +225,36 @@ describe("Profile", async () => {
     assert(profile.body != JSON.stringify(notexpectedProfile));
   });
 });
+
+describe("Fuel Quote", async () => {
+  it("Should return expected fuel quote", async () => {
+    let fuel_quote = await got("http://localhost:8080/api/fuel_quote", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        cookie:
+          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+      },
+    });
+    const expectedfuel_quote = {
+      price: 100,
+    };
+    console.log(fuel_quote.body);
+    console.log(JSON.stringify(expectedfuel_quote));
+    assert(fuel_quote.body == JSON.stringify(expectedfuel_quote));
+  });
+  it("Should not return incorrect fuel quote", async () => {
+    let fuel_quote = await got("http://localhost:8080/api/fuel_quote", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        cookie:
+          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+      },
+    });
+    const notexpectedfuel_quote = {
+      price: 200,
+    };
+    assert(fuel_quote.body != JSON.stringify(notexpectedfuel_quote));
+  });
+});
