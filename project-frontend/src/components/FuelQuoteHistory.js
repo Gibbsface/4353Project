@@ -43,12 +43,12 @@ export class History extends React.Component {
                   </tr>
                 </thead>
                 {this.state.history.map((history) => (
-                  <tr key={history.id}>
-                    <th>{history.gallonsRequested}</th>
-                    <th>{history.deliveryAddress}</th>
-                    <th>{history.deliveryDate} </th>
-                    <th>{history.suggestedPrice}</th>
-                    <th>{history.totalPrice}</th>
+                  <tr key={history.quote_id}>
+                    <td>{history.gallons_requested}</td>
+                    <td>{history.address_1}</td>
+                    <td>{history.delivery_date}</td>
+                    <td>${history.suggested_price}</td>
+                    <td>${history.total_amount_due}</td>
                   </tr>
                 ))}
               </table>
