@@ -4,7 +4,9 @@ let { dbUsername, dbPassword } = argv;
 const mysql = require('mysql');
 
 const endpoint = async function (request, response) {
-    let { username, password, extrapass } = request.body;
+    console.log(request.body);
+    let { username, password, repassword:extrapass } = request.body;
+    console.log(username, password, extrapass);
     if (password !== extrapass)
         return response.send(JSON.stringify({
             success: false,
