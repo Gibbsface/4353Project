@@ -52,6 +52,7 @@ export class History extends React.Component {
                   </tr>
                 ))}
               </table>
+              {this.state.history.length==0?<p>No history</p>:<div/>}
             </div>
           </div>
         </div>
