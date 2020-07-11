@@ -4,7 +4,6 @@ const multer = require('multer');
 const cookieparser = require('cookie-parser');
 const cors = require('cors');
 const authMiddleware = require('./middleware/authentication_middleware');
-//const mysql = require("mysql");
 let form_parser = multer();
 
 const {argv} = require('yargs');
@@ -19,39 +18,6 @@ let dbPassword = argv.dbPassword;
 if(!dbUsername || !dbPassword){
   throw new Error("You need to provide dbUsername and dbPassword as command line arguments, i.e. node server.js --dbUsername=root --dbPassword=root\n\tAlternatively you can do npm run start -- --dbUsername=hi --dbPassword=hi\n\t***The extra set of \"--\" is required***")
 }
-
-/* 
-let connection = mysql.createPool({
-  connectionLimit: 50,
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "sql_database",
-});
-
-app.get("/", function (req, resp) {
-  connection.getConnection(function (error, tempCont) {
-    //tempCont is temporary connection variable
-    if (!!error) {
-      tempCont.release();
-      console.log("Error: Cannot connect to database");
-    } else {
-      console.log("Connected to database");
-      tempCont.query("SELECT * FROM user_credentials", function (
-        error,
-        rows,
-        fields
-      ) {
-        if (!!error) {
-          tempCont.release();
-          console.log("Error in Query");
-        } else {
-          resp.json(rows);
-        }
-      });
-    }
-  });
-}); */
 
 app.use(cors({
     origin: true,
