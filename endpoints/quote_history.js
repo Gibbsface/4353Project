@@ -3,7 +3,6 @@ let { dbUsername, dbPassword } = argv;
 let connection = require("../database");
 
 const endpoint = function (request, response) {
-  console.log(request.username);
   connection.query(
     `SELECT * FROM fuel_quote WHERE id = '${request.username}'`,
     function (error, rows, fields) {
