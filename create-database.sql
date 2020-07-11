@@ -4,9 +4,9 @@ USE `sql_database`;
 
 
 CREATE TABLE `user_credentials` (
-  `client_id` int(10) NOT NULL,
+  `client_id` int(10) NOT NULL AUTO_INCREMENT,
   `id` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
+  `password` varchar(106) NOT NULL,
   PRIMARY KEY (`client_id`)
 ); 
 INSERT INTO `user_credentials` VALUES (1,'test','test');
