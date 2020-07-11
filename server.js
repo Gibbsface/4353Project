@@ -7,9 +7,18 @@ const authMiddleware = require('./middleware/authentication_middleware');
 //const mysql = require("mysql");
 let form_parser = multer();
 
+const {argv} = require('yargs');
+
 const {fuel_quote, quote_history, login, register, profile_info, profile_update} = require('./endpoints');
 
 let app = express();
+
+let dbUsername = argv.dbUsername;
+let dbPassword = argv.dbPassword;
+
+if(!dbUsername || !dbPassword){
+  throw new Error("You need to provide dbUsername and dbPassword as command line arguments, i.e. node server.js --dbUsername=root --dbPassword=root\n\tAlternatively you can do npm run start -- --dbUsername=hi --dbPassword=hi\n\t***The extra set of \"--\" is required***")
+}
 
 /* 
 let connection = mysql.createPool({
@@ -69,3 +78,5 @@ app.get('/api/fuel_quote', fuel_quote);
 app.use(express.static(`project-frontend/build`));
 
 app.listen(8080);
+
+module.exports = {dbUsername, dbPassword};
