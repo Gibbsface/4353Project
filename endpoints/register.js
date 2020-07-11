@@ -2,11 +2,9 @@ let passwordHash = require('password-hash');
 let { argv } = require('yargs');
 let { dbUsername, dbPassword } = argv;
 const mysql = require('mysql');
-const username_list = ['test'];
 
 const endpoint = async function (request, response) {
     let { username, password, extrapass } = request.body;
-    console.log(username, password, extrapass)
     if (password !== extrapass)
         return response.send(JSON.stringify({
             success: false,

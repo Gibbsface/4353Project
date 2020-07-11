@@ -22,7 +22,6 @@ const middleware = function (req, res, next) {
     // need to check if token cookie is valid
     try {
         let valid = jwt.verify(req.cookies.token, "secret", { ignoreExpiration: true });
-        console.log(valid);
         if (valid && valid.data) {
             // token is valid, can move on to actual request
             req.username = valid.data.username; 

@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const passwordHash = require('password-hash');
-
+let {argv} = require('yargs');
+let {dbUsername, dbPassword} = argv;
+const mysql = require('mysql');
 const hardcode_creds = {
     username: "test",
     hashPass: passwordHash.generate("test", {
@@ -13,25 +15,56 @@ const hardcode_creds = {
 
 const endpoint = function (request, response) {
     let { username, password } = request.body;
-    if (request.body.username == hardcode_creds.username && passwordHash.verify(password, hardcode_creds.hashPass)) {
-        let token = jwt.sign({data: {username:username}}, "secret", { expiresIn: 60 * 60 * 24 })
-        response.status(200);
-        response.cookie('token', token, {
-            maxAge: 1000*60*60*24
-        })
-        response.contentType("application/json");
-        response.send(JSON.stringify({
-            success: true,
-            data: {
-                token
+    let connection = mysql.createConnection({
+        host: "localhost",
+        user: dbUsername,
+        password: dbPassword,
+        database: "sql_database",
+    });
+    connection.connect(e => {
+        if (e) {
+            return response.send(e);
+        }
+        connection.query(`SELECT id AS username, password AS hashedPass FROM user_credentials WHERE id="${username}"`, (err, res, fields)=>{
+            if(err){
+                return response.send(err);
             }
-        }))
-    } else {
-        response.send(JSON.stringify({
-            success: false,
-            data: null
-        }))
-    }
+            if(res.length==0)
+                return response.send(JSON.stringify({
+                    success:false,
+                    data:"No such user found"
+                }))
+            let check = passwordHash.verify(password, res[0].hashedPass);
+            if(check){
+                let token = jwt.sign({data: {username}}, "secret", { expiresIn: 60 * 60 * 24 })
+                response.cookie('token', token, {
+                    maxAge: 1000*60*60*24
+                })
+                response.contentType("application/json");
+                return response.send(JSON.stringify({
+                    success: true,
+                    data: {
+                        token
+                    }
+                }))
+            }else{
+                response.contentType("application/json");
+                return response.send(JSON.stringify({
+                    success:false,
+                    data:"Wrong password"
+                }))
+            }
+        })
+    });
+    // });
+    // if (request.body.username == hardcode_creds.username && passwordHash.verify(password, hardcode_creds.hashPass)) {
+  
+    // } else {
+    //     response.send(JSON.stringify({
+    //         success: false,
+    //         data: null
+    //     }))
+    // }
 }
 
 module.exports = endpoint;
