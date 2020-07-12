@@ -5,9 +5,6 @@ const cookieparser = require('cookie-parser');
 const cors = require('cors');
 const authMiddleware = require('./middleware/authentication_middleware');
 let form_parser = multer();
-
-const {argv} = require('yargs');
-
 const {fuel_quote, quote_history, login, register, profile_info, profile_update, fuel_quote_post,} = require('./endpoints');
 
 let app = express();

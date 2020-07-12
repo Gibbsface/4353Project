@@ -8,8 +8,8 @@ dbPassword = dbPassword || ""
 let connection = mysql.createConnection({
   connectionLimit: 50,
   host: "localhost",
-  user: "root",
-  password: "",
+  user: dbUsername,
+  password: dbPassword,
   database: "sql_database",
 });
 
