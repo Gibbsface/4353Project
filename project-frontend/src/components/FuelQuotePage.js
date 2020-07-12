@@ -1,6 +1,19 @@
 import React, { Component } from "react";
 import "react-bulma-components/dist/react-bulma-components.min.css";
 
+//Script to get todays date
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1;
+var yyyy = today.getFullYear();
+if (dd < 10) {
+  dd = "0" + dd;
+}
+if (mm < 10) {
+  mm = "0" + mm;
+}
+today = yyyy + "-" + mm + "-" + dd;
+
 export class FuelQuote extends Component {
   constructor(props) {
     super(props);
@@ -40,8 +53,19 @@ export class FuelQuote extends Component {
 
   handleCalculation(e) {
     e.preventDefault();
-    this.setState({ disabled: !this.state.disabled });
-    alert("Locking in variables and Calculating Price (WIP)");
+    if (
+      this.state.gallons_requested >= 1 &&
+      this.state.delivery_date != undefined
+    ) {
+      if (this.state.delivery_date >= today) {
+        this.setState({ disabled: !this.state.disabled });
+        alert("Locking in variables and Calculating Price (WIP)");
+      } else {
+        alert("Invalid date! We can't deliver to the past!");
+      }
+    } else {
+      alert("Please input valid gallons and date!");
+    }
   }
 
   onChange(e) {
@@ -60,9 +84,6 @@ export class FuelQuote extends Component {
       );
   }
 
-  //Make sure they cant change gallons or date after calculation.
-  //Make sure date cannot be past date
-
   render() {
     return (
       <div className="container">
@@ -75,7 +96,7 @@ export class FuelQuote extends Component {
                   <input
                     type="number"
                     placeholder="0"
-                    min="0"
+                    min="1"
                     max="10000"
                     name="gallons_requested"
                     className="input"
@@ -111,9 +132,8 @@ export class FuelQuote extends Component {
                 <div className="control has-icons-left">
                   <input
                     type="date"
-                    id="datefield"
                     className="input"
-                    min="2020-07-11"
+                    //min="2020-07-12"
                     name="delivery_date"
                     //value={this.state.delivery_date}
                     onChange={this.onChange}
@@ -160,7 +180,11 @@ export class FuelQuote extends Component {
                 </div>
               </div>
               <div className="field has-text-centered">
-                <button className="button" onClick={this.handleCalculation}>
+                <button
+                  className="button"
+                  onClick={this.handleCalculation}
+                  disabled={this.state.disabled}
+                >
                   <p>Calculate Price</p>
                 </button>
               </div>
@@ -169,6 +193,7 @@ export class FuelQuote extends Component {
                   type="submit"
                   className="button is-link"
                   value="Submit Form"
+                  disabled={!this.state.disabled}
                 />
               </div>
             </form>
