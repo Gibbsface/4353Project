@@ -31,9 +31,14 @@ export class FuelQuote extends Component {
       body: JSON.stringify(this.state),
     }).then((res) => {
       res.json().then((result) => {
-        //this.props.rToggle();
+        this.props.submitform();
       });
     });
+  }
+  
+  handleCalculation(e) {
+    e.preventDefault();
+    alert("Calculating Price (WIP)");
   }
 
   onChange(e) {
@@ -150,7 +155,7 @@ export class FuelQuote extends Component {
                 </div>
               </div>
               <div className="field has-text-centered">
-                <button className="button" onClick={this.props.rToggle}>
+                <button className="button" onClick={this.handleCalculation}>
                   <p>Calculate Price</p>
                 </button>
               </div>
