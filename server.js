@@ -12,12 +12,6 @@ const {fuel_quote, quote_history, login, register, profile_info, profile_update,
 
 let app = express();
 
-let dbUsername = argv.dbUsername;
-let dbPassword = argv.dbPassword;
-if(!dbUsername || !dbPassword){
-  throw new Error("You need to provide dbUsername and dbPassword as command line arguments, i.e. node server.js --dbUsername=root --dbPassword=root\n\tAlternatively you can do npm run start -- --dbUsername=hi --dbPassword=hi\n\t***The extra set of \"--\" is required***")
-}
-
 app.use(cors({
     origin: true,
     credentials: true
