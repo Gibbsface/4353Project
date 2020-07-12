@@ -39,5 +39,3 @@ app.get('/api/fuel_quote', fuel_quote);
 app.use(express.static(`project-frontend/build`));
 
 app.listen(8080);
-
-module.exports = {dbUsername, dbPassword};
