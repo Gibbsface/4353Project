@@ -1,4 +1,9 @@
 const mysql = require("mysql");
+let {argv} = require('yargs');
+let {dbUsername, dbPassword} = argv;
+
+dbUsername = dbUsername || "root"
+dbPassword = dbPassword || ""
 
 let connection = mysql.createConnection({
   connectionLimit: 50,
