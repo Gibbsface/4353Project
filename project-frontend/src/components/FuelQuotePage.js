@@ -14,9 +14,11 @@ export class FuelQuote extends Component {
           total_amount_due: "0",
         },
       ],
+      disabled: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.handleCalculation = this.handleCalculation.bind(this);
   }
 
   handleSubmit(e) {
@@ -35,10 +37,11 @@ export class FuelQuote extends Component {
       });
     });
   }
-  
+
   handleCalculation(e) {
     e.preventDefault();
-    alert("Calculating Price (WIP)");
+    this.setState({ disabled: !this.state.disabled });
+    alert("Locking in variables and Calculating Price (WIP)");
   }
 
   onChange(e) {
@@ -79,6 +82,7 @@ export class FuelQuote extends Component {
                     required
                     //value={this.gallons_requested}
                     onChange={this.onChange}
+                    disabled={this.state.disabled}
                   />
                   <span className="icon is-small is-left">
                     <i className="fa fa-hashtag"></i>
@@ -114,6 +118,7 @@ export class FuelQuote extends Component {
                     //value={this.state.delivery_date}
                     onChange={this.onChange}
                     required
+                    disabled={this.state.disabled}
                   />
                   <span className="icon is-small is-left">
                     <i className="fa fa-calendar"></i>
