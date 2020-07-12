@@ -36,17 +36,23 @@ class HomePage extends Component {
     }
 
     state = {
-        page: "quote"
+        page: "profile"
     }
 
     navHandler(tab) {
         this.setState({page: tab});
     }
 
+    submitform = () => {
+    	this.setState({ page: "history" });
+    	alert("Fuel Quote Submitted");
+    };
+
+
     appletSwitch(s) {
         switch (s) {
             case "quote":
-                return <Quote />
+                return <Quote submitform={this.submitform} />
             case "profile":
                 return <Profile />
             case "history":

@@ -134,59 +134,27 @@ describe("History", async () => {
     });
     const expectedHistory = [
       {
-        username: "test",
-        id: 1,
-        gallonsRequested: "5",
-        deliveryAddress: "0005 Example Dr",
-        deliveryDate: "6/28/2020",
-        suggestedPrice: "1",
-        totalPrice: "5",
+        id: "test",
+        quote_id: 1,
+        gallons_requested: 1,
+        address_1: "0005 Example Dr",
+        delivery_date: "2020-06-28",
+        suggested_price: 1,
+        total_amount_due: 5,
       },
       {
-        username: "test",
-        id: 2,
-        gallonsRequested: "10",
-        deliveryAddress: "0010 Example St",
-        deliveryDate: "6/30/2020",
-        suggestedPrice: "2",
-        totalPrice: "20",
+        id: "test",
+        quote_id: 3,
+        gallons_requested: 3,
+        address_1: "0005 Example Dr",
+        delivery_date: "2020-06-28",
+        suggested_price: 1,
+        total_amount_due: 5,
       },
     ];
     assert(history.body == JSON.stringify(expectedHistory));
   });
-  it("Should not return incorrect history", async () => {
-    let history = await got("http://localhost:8080/api/quote_history", {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-        cookie:
-          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
-      },
-    });
-    const notexpectedHistory = [
-      {
-        username: "test2",
-        id: 1,
-        gallonsRequested: "5",
-        deliveryAddress: "0005 Example Dr",
-        deliveryDate: "6/28/2020",
-        suggestedPrice: "1",
-        totalPrice: "5",
-      },
-      {
-        username: "test",
-        id: 2,
-        gallonsRequested: "10",
-        deliveryAddress: "0010 Example St",
-        deliveryDate: "6/30/2020",
-        suggestedPrice: "2",
-        totalPrice: "20",
-      },
-    ];
-    assert(history.body != JSON.stringify(notexpectedHistory));
-  });
 });
-
 describe("Profile", async () => {
   it("Should return expected profile", async () => {
     let profile = await got("http://localhost:8080/api/profile_info", {
@@ -249,13 +217,32 @@ describe("Fuel Quote", async () => {
           "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
       },
     });
-    const expectedfuel_quote = {
-      price: 100,
-    };
+    const expectedfuel_quote = [
+      {
+        address_1: "0005 Example Dr",
+      },
+    ];
     assert(fuel_quote.body == JSON.stringify(expectedfuel_quote));
   });
-  it("Should not return incorrect fuel quote", async () => {
-    let fuel_quote = await got("http://localhost:8080/api/fuel_quote", {
+});
+
+describe("Fuel Quote Post", async () => {
+  it("Should post fuel quote", async () => {
+    let fuel_quote = await got("http://localhost:8080/api/fuel_quote_post", {
+      body: JSON.stringify({
+        gallons_requested: 100,
+        delivery_date: "2020-07-11",
+      }),
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        cookie:
+          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+      },
+    });
+  });
+  it("Should return history with fuel quote post", async () => {
+    let history = await got("http://localhost:8080/api/quote_history", {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -263,9 +250,36 @@ describe("Fuel Quote", async () => {
           "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
       },
     });
-    const notexpectedfuel_quote = {
-      price: 200,
-    };
-    assert(fuel_quote.body != JSON.stringify(notexpectedfuel_quote));
+    const expectedHistory = [
+      {
+        id: "test",
+        quote_id: 1,
+        gallons_requested: 1,
+        address_1: "0005 Example Dr",
+        delivery_date: "2020-06-28",
+        suggested_price: 1,
+        total_amount_due: 5,
+      },
+      {
+        id: "test",
+        quote_id: 3,
+        gallons_requested: 3,
+        address_1: "0005 Example Dr",
+        delivery_date: "2020-06-28",
+        suggested_price: 1,
+        total_amount_due: 5,
+      },
+      {
+        id: "test",
+        quote_id: 4,
+        gallons_requested: 100,
+        address_1: "0005 Example Dr",
+        delivery_date: "2020-07-11",
+        suggested_price: 0,
+        total_amount_due: 0,
+      },
+    ];
+    assert(history.body == JSON.stringify(expectedHistory));
   });
 });
+
