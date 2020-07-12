@@ -8,7 +8,7 @@ let form_parser = multer();
 
 const {argv} = require('yargs');
 
-const {fuel_quote, quote_history, login, register, profile_info, profile_update} = require('./endpoints');
+const {fuel_quote, quote_history, login, register, profile_info, profile_update, fuel_quote_post,} = require('./endpoints');
 
 let app = express();
 
@@ -34,6 +34,8 @@ app.post('/api/login', login)
 app.post('/api/register',register)
 
 app.post('/api/profile_update',profile_update)
+
+app.post("/api/fuel_quote_post", fuel_quote_post);
 
 app.get('/api/profile_info', profile_info)
 
