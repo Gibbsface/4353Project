@@ -40,3 +40,9 @@
 .hero {
   background: black url(imgs/Tesla.jpg) center / cover;
 }
+
+.navbar-item-hover:hover{
+  background-color: #fafafa;
+  color: #3273dc;
+  cursor: pointer;
+}
