@@ -30,7 +30,7 @@ describe("Login", async () => {
       },
     });
     let body = JSON.parse(result.body);
-    assert(!body.success && body.data == "No such user found");
+    assert(!body.success && (body.data == "No such user found"||body.data=="Wrong password"));
   });
 });
 
@@ -38,7 +38,7 @@ describe("Register", async () => {
   it("should allow a new, unique user to register", async () => {
     let result = await got("http://localhost:8080/api/register", {
       body: JSON.stringify({
-        username: "not_test",
+        username: new Date().getTime().toString(),
         password: "pass",
         repassword: "pass",
       }),
@@ -48,7 +48,7 @@ describe("Register", async () => {
       },
     });
     let body = JSON.parse(result.body);
-    //console.log(body.data);
+    console.log(body.data);
     assert(body.success && body.data == null);
   });
   it("should not allow a user with mismatching passwords to register", async () => {
