@@ -158,17 +158,38 @@ describe("Profile", async () => {
           "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
       },
     });
-    const expectedProfile = {
-      fullName: "Johnny Appleseed",
-      addr1: "123 Apple Way",
-      addr2: "Apt A",
-      city: "Blossom",
-      state: "Virginia",
-      zip: "12345",
-    };
+    const expectedProfile = [
+      {
+        id: "test",
+        full_name: "Test Testerson",
+        address_1: "0005 Example Dr",
+        address_2: "",
+        city: "Houston",
+        state: "TX",
+        zipcode: 77204,
+      },
+    ];
     assert(profile.body == JSON.stringify(expectedProfile));
   });
-  it("Should not return incorrect profile", async () => {
+  it("Should update profile", async () => {
+    let profile = await got("http://localhost:8080/api/profile_update", {
+      body: JSON.stringify({
+        full_name: "Test Testerson",
+        address_1: "0005 Example Dr",
+        address_2: "",
+        city: "Dallas",
+        state: "TX",
+        zipcode: 77204,
+      }),
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        cookie:
+          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+      },
+    });
+  });
+  it("Should return updated profile", async () => {
     let profile = await got("http://localhost:8080/api/profile_info", {
       method: "GET",
       headers: {
@@ -177,28 +198,18 @@ describe("Profile", async () => {
           "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
       },
     });
-    const notexpectedProfile = {
-      fullName: "Johnny Lemonseed",
-      addr1: "123 Lemon Way",
-      addr2: "Apt A",
-      city: "Blossom",
-      state: "Virginia",
-      zip: "12345",
-    };
-    assert(profile.body != JSON.stringify(notexpectedProfile));
-  });
-  it("Should accept a new profile", async () => {
-    let profile = await got("http://localhost:8080/api/profile_update", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        cookie:
-          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+    const expectedProfile = [
+      {
+        id: "test",
+        full_name: "Test Testerson",
+        address_1: "0005 Example Dr",
+        address_2: "",
+        city: "Dallas",
+        state: "TX",
+        zipcode: 77204,
       },
-    });
-    assert(
-      profile.statusCode === 200 && profile.body == "Profile Update Success"
-    );
+    ];
+    assert(profile.body == JSON.stringify(expectedProfile));
   });
 });
 
