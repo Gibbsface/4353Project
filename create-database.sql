@@ -4,13 +4,12 @@ USE `sql_database`;
 
 
 CREATE TABLE `user_credentials` (
-  `client_id` int(10) NOT NULL AUTO_INCREMENT,
   `id` varchar(100) NOT NULL,
   `password` varchar(106) NOT NULL,
-  PRIMARY KEY (`client_id`)
+  PRIMARY KEY (`id`)
 ); 
-INSERT INTO `user_credentials` VALUES ('test','test');
-INSERT INTO `user_credentials` VALUES ('test2','test');
+INSERT INTO `user_credentials` VALUES ('test','sha256$5adad2b3134d3cc6c91fcf0e44b8a246$5$0a9f6c26b4d7e119e75e3a0564a85b033324c830a10cd63ac87f31c995bc3c64');
+INSERT INTO `user_credentials` VALUES ('test2','sha256$5adad2b3134d3cc6c91fcf0e44b8a246$5$0a9f6c26b4d7e119e75e3a0564a85b033324c830a10cd63ac87f31c995bc3c64');
 
 
 
