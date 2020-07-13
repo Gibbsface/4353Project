@@ -1,11 +1,20 @@
-const endpoint = function(request, response){
-    if(validate(request.body))
-        response.send("Profile Update Success")
-}
+let { argv } = require("yargs");
+let { dbUsername, dbPassword } = argv;
+let connection = require("../database");
 
-validate = (profile) => {
-    //hit database and try to post new data, if we get an error we will return false
-    return true
+const endpoint = function(request, response){
+    connection.query(
+        `SELECT * FROM client_information WHERE id = '${request.username}'`,
+        function (error, rows, fields) {
+          if (!!error) {
+            console.log("Error in Query");
+          } else {
+            console.log("Successful Query", rows);
+            response.contentType("application/json");
+            response.json(rows);
+          }
+        }
+      );
 }
 
 module.exports = endpoint;
