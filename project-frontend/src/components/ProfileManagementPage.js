@@ -265,7 +265,9 @@ class ProfileManagementPage extends React.Component {
             method:'get',
             credentials:"include",
             mode:'cors',
-        }).then((res) => res.json()).then((profile) =>
+        })
+        .then((res) => res.json())
+        .then((profile) =>
             this.setState({ profile }, () =>
                 console.log("Profile fetched...", profile)));
     }
