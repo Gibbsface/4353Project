@@ -1,5 +1,3 @@
-let { argv } = require("yargs");
-let { dbUsername, dbPassword } = argv;
 let connection = require("../database");
 
 const endpoint = function(request, response){
