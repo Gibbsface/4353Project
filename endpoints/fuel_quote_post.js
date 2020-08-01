@@ -9,7 +9,7 @@ const endpoint = async function (request, response) {
       let address = rows[0].address_1;
       //console.log(delivery_date);
       connection.query(
-        `INSERT INTO fuel_quote VALUES ("${request.username}","","${gallons_requested}",
+        `INSERT INTO fuel_quote (id, gallons_requested, address_1, delivery_date, suggested_price, total_amount_due) VALUES ("${request.username}","${gallons_requested}",
         "${address}","${delivery_date}","${margin}","${total}")`,
         (err, res, fields) => {
           if (err) {

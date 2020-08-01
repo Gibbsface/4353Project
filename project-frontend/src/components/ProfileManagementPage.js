@@ -269,8 +269,8 @@ class ProfileManagementPage extends React.Component {
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
-    this.setState({ [e.target.name]: e.target.value });
   }
+
   handleSubmit(e) {
     e.preventDefault();
     fetch("http://localhost:8080/api/profile_update", {
@@ -289,6 +289,7 @@ class ProfileManagementPage extends React.Component {
   }
 
   render() {
+    console.log(this.state.profile)
     return (
       <div className="container">
         <div className="columns is-centered">
@@ -305,9 +306,7 @@ class ProfileManagementPage extends React.Component {
                     className="input"
                     required
                     maxLength="50"
-                    defaultValue={this.state.profile.map(
-                      (profile) => profile.full_name
-                    )}
+                    defaultValue={this.state.profile.map(p=>p.full_name)}
                     onChange={this.onChange}
                   />
                   <span className="icon is-small is-left">
