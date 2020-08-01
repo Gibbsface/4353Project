@@ -7,6 +7,7 @@ const endpoint = async function (request, response) {
     `SELECT address_1 FROM client_information WHERE id = '${request.username}'`,
     function (error, rows, fields) {
       let address = rows[0].address_1;
+      //console.log(delivery_date);
       connection.query(
         `INSERT INTO fuel_quote VALUES ("${request.username}","","${gallons_requested}",
         "${address}","${delivery_date}","${margin}","${total}")`,
