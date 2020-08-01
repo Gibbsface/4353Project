@@ -21,12 +21,15 @@ export class FuelQuote extends Component {
       quote: [
         {
           gallons_requested: "",
-          address_1: "",
+          address_1: "None",
           delivery_date: "",
           suggessted_price: "0",
           total_amount_due: "0",
         },
       ],
+      pricing: 0,
+      margin: 0,
+      total: 0,
       disabled: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -53,18 +56,30 @@ export class FuelQuote extends Component {
 
   handleCalculation(e) {
     e.preventDefault();
+    console.log(this.state.pricing);
     if (
       this.state.gallons_requested >= 1 &&
-      this.state.delivery_date != undefined
+      this.state.gallons_requested <= 1000000 &&
+      this.state.delivery_date != undefined &&
+      this.state.delivery_date >= today
     ) {
-      if (this.state.delivery_date >= today) {
-        this.setState({ disabled: !this.state.disabled });
-        alert("Locking in variables and Calculating Price (WIP)");
+      this.setState({ disabled: !this.state.disabled });
+      alert("Locking in variables and Calculating Price (WIP)");
+      if (this.state.gallons_requested > 1000) {
+        let marginC = (this.state.pricing + 0.02 + 0.1) * 1.5 + 1.5;
+        this.setState({ margin: marginC });
+        let total_price = marginC * this.state.gallons_requested;
+        this.setState({ total: total_price });
       } else {
-        alert("Invalid date! We can't deliver to the past!");
+        let marginC = (this.state.pricing + 0.03 + 0.1) * 1.5 + 1.5;
+        this.setState({ margin: marginC });
+        let total_price = marginC * this.state.gallons_requested;
+        this.setState({ total: total_price });
       }
     } else {
-      alert("Please input valid gallons and date!");
+      alert(
+        "Please input valid date and number for gallons! \nDates cannot be from the past \nGallons can only go from 1 to 1000000"
+      );
     }
   }
 
@@ -82,6 +97,17 @@ export class FuelQuote extends Component {
       .then((quote) =>
         this.setState({ quote }, () => console.log("Quote fetched...", quote))
       );
+    fetch("http://localhost:8080/api/pricing_module", {
+      method: "get",
+      credentials: "include",
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((pricing) =>
+        this.setState({ pricing }, () =>
+          console.log("Pricing fetched...", pricing)
+        )
+      );
   }
 
   render() {
@@ -97,11 +123,10 @@ export class FuelQuote extends Component {
                     type="number"
                     placeholder="0"
                     min="1"
-                    max="10000"
+                    max="1000000"
                     name="gallons_requested"
                     className="input"
                     required
-                    //value={this.gallons_requested}
                     onChange={this.onChange}
                     disabled={this.state.disabled}
                   />
@@ -115,11 +140,11 @@ export class FuelQuote extends Component {
                 <div className="control has-icons-left">
                   <input
                     type="text"
-                    placeholder="address from page"
+                    placeholder="No Address Found"
                     className="input"
-                    name="address"
+                    name="address_1"
+                    defaultValue={this.state.address_1}
                     value={this.state.quote.map((quote) => quote.address_1)}
-                    onChange={this.onChange}
                     disabled
                   />
                   <span className="icon is-small is-left">
@@ -133,9 +158,7 @@ export class FuelQuote extends Component {
                   <input
                     type="date"
                     className="input"
-                    //min="2020-07-12"
                     name="delivery_date"
-                    //value={this.state.delivery_date}
                     onChange={this.onChange}
                     required
                     disabled={this.state.disabled}
@@ -146,7 +169,7 @@ export class FuelQuote extends Component {
                 </div>
               </div>
               <div className="field">
-                <label className="label">Suggested Price</label>
+                <label className="label">Suggested Price/Gallon</label>
                 <div className="control has-icons-left">
                   <input
                     type="text"
@@ -155,7 +178,7 @@ export class FuelQuote extends Component {
                     disabled
                     name="suggestedPrice"
                     onChange={this.onChange}
-                    // value={this.state.suggessted_price}
+                    value={this.state.margin}
                   />
                   <span className="icon is-small is-left">
                     <i className="fa fa-dollar"></i>
@@ -170,7 +193,7 @@ export class FuelQuote extends Component {
                     placeholder="0"
                     className="input"
                     name="totalPrice"
-                    //value={this.state.total_amount_due}
+                    value={this.state.total}
                     onChange={this.onChange}
                     disabled
                   />
@@ -185,7 +208,7 @@ export class FuelQuote extends Component {
                   onClick={this.handleCalculation}
                   disabled={this.state.disabled}
                 >
-                  <p>Calculate Price</p>
+                  <p>Get Quote</p>
                 </button>
               </div>
               <div className="field has-text-centered">
