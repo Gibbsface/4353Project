@@ -283,7 +283,7 @@ class ProfileManagementPage extends React.Component {
       body: JSON.stringify(this.state),
     }).then((res) => {
       res.json().then((result) => {
-        //window.location.reload();
+        this.props.submitprofile();
       });
     });
   }
