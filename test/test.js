@@ -3,7 +3,37 @@ const got = require("got");
 const _ = require("underscore");
 const server = require("../server");
 
+let token = "";
+
 describe("Login", async () => {
+  it("should return {successs: false, data:\"Wrong Password\"} for wrong password", async () => {
+    let result = await got("http://localhost:8080/api/login", {
+      body: JSON.stringify({
+        username: "test2",
+        password: "invalid_pass",
+      }),
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    let body = JSON.parse(result.body);
+    assert(!body.success && body.data == "Wrong password");
+  });
+  it("should return {successs: false, data:\"No such user\"} for invalid username", async () => {
+    let result = await got("http://localhost:8080/api/login", {
+      body: JSON.stringify({
+        username: "not_an_account",
+        password: "invalid_pass",
+      }),
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    let body = JSON.parse(result.body);
+    assert(!body.success && body.data == "No such user");
+  });
   it("should return {success:true, data:some token} for good creds", async () => {
     let result = await got("http://localhost:8080/api/login", {
       body: JSON.stringify({
@@ -16,21 +46,8 @@ describe("Login", async () => {
       },
     });
     let body = JSON.parse(result.body);
+    token = body.data.token;
     assert(body.success && body.data && body.data.token != null);
-  });
-  it("should return {successs: false, data:null} for bad creds", async () => {
-    let result = await got("http://localhost:8080/api/login", {
-      body: JSON.stringify({
-        username: "not_test",
-        password: "invalid_pass",
-      }),
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-    });
-    let body = JSON.parse(result.body);
-    assert(!body.success && (body.data == "No such user found"||body.data=="Wrong password"));
   });
 });
 
@@ -116,7 +133,7 @@ describe("History", async () => {
       headers: {
         "content-type": "application/json",
         cookie:
-          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+          `token=${token}`,
       },
     });
     const expectedHistory = [
@@ -155,7 +172,7 @@ describe("Profile", async () => {
       headers: {
         "content-type": "application/json",
         cookie:
-          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+          `token=${token}`,
       },
     });
     const expectedProfile = [
@@ -185,7 +202,7 @@ describe("Profile", async () => {
       headers: {
         "content-type": "application/json",
         cookie:
-          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+          `token=${token}`,
       },
     });
   });
@@ -195,7 +212,7 @@ describe("Profile", async () => {
       headers: {
         "content-type": "application/json",
         cookie:
-          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+          `token=${token}`,
       },
     });
     const expectedProfile = [
@@ -220,7 +237,7 @@ describe("Fuel Quote", async () => {
       headers: {
         "content-type": "application/json",
         cookie:
-          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+          `token=${token}`,
       },
     });
     const expectedfuel_quote = [
@@ -243,7 +260,7 @@ describe("Fuel Quote Post", async () => {
       headers: {
         "content-type": "application/json",
         cookie:
-          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+          `token=${token}`,
       },
     });
     console.log(
@@ -256,7 +273,7 @@ describe("Fuel Quote Post", async () => {
       headers: {
         "content-type": "application/json",
         cookie:
-          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+          `token=${token}`,
       },
     });
     const expectedHistory = [

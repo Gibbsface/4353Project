@@ -11,7 +11,7 @@ const endpoint = function (request, response) {
         if (res.length == 0)
             return response.send(JSON.stringify({
                 success: false,
-                data: "No such user found"
+                data: "No such user"
             }))
         let check = passwordHash.verify(password, res[0].hashedPass);
         if (check) {
