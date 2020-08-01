@@ -56,30 +56,34 @@ export class FuelQuote extends Component {
 
   handleCalculation(e) {
     e.preventDefault();
-    console.log(this.state.pricing);
-    if (
-      this.state.gallons_requested >= 1 &&
-      this.state.gallons_requested <= 1000000 &&
-      this.state.delivery_date != undefined &&
-      this.state.delivery_date >= today
-    ) {
-      this.setState({ disabled: !this.state.disabled });
-      alert("Locking in variables and Calculating Price (WIP)");
-      if (this.state.gallons_requested > 1000) {
-        let marginC = (this.state.pricing + 0.02 + 0.1) * 1.5 + 1.5;
-        this.setState({ margin: marginC });
-        let total_price = marginC * this.state.gallons_requested;
-        this.setState({ total: total_price });
+    //console.log(this.state.quote[0].address_1);
+    if (this.state.quote[0].address_1 != "None") {
+      if (
+        this.state.gallons_requested >= 1 &&
+        this.state.gallons_requested <= 1000000 &&
+        this.state.delivery_date != undefined &&
+        this.state.delivery_date >= today
+      ) {
+        this.setState({ disabled: !this.state.disabled });
+        alert("Locking in variables and Calculating Price (WIP)");
+        if (this.state.gallons_requested > 1000) {
+          let marginC = (this.state.pricing + 0.02 + 0.1) * 1.5 + 1.5;
+          this.setState({ margin: marginC });
+          let total_price = marginC * this.state.gallons_requested;
+          this.setState({ total: total_price });
+        } else {
+          let marginC = (this.state.pricing + 0.03 + 0.1) * 1.5 + 1.5;
+          this.setState({ margin: marginC });
+          let total_price = marginC * this.state.gallons_requested;
+          this.setState({ total: total_price });
+        }
       } else {
-        let marginC = (this.state.pricing + 0.03 + 0.1) * 1.5 + 1.5;
-        this.setState({ margin: marginC });
-        let total_price = marginC * this.state.gallons_requested;
-        this.setState({ total: total_price });
+        alert(
+          "Please input valid date and number for gallons! \nDates cannot be from the past \nGallons can only go from 1 to 1000000"
+        );
       }
     } else {
-      alert(
-        "Please input valid date and number for gallons! \nDates cannot be from the past \nGallons can only go from 1 to 1000000"
-      );
+      this.props.newUser();
     }
   }
 
@@ -127,6 +131,7 @@ export class FuelQuote extends Component {
                     name="gallons_requested"
                     className="input"
                     required
+                    //value={this.gallons_requested}
                     onChange={this.onChange}
                     disabled={this.state.disabled}
                   />
@@ -159,6 +164,7 @@ export class FuelQuote extends Component {
                     type="date"
                     className="input"
                     name="delivery_date"
+                    //value={this.state.delivery_date}
                     onChange={this.onChange}
                     required
                     disabled={this.state.disabled}
