@@ -5,7 +5,7 @@ const cookieparser = require('cookie-parser');
 const cors = require('cors');
 const authMiddleware = require('./middleware/authentication_middleware');
 let form_parser = multer();
-const {fuel_quote, quote_history, login, register, profile_info, profile_update, fuel_quote_post,} = require('./endpoints');
+const {fuel_quote, quote_history, login, register, profile_info, profile_update, fuel_quote_post, pricing_module,} = require('./endpoints');
 
 let app = express();
 
@@ -26,6 +26,8 @@ app.post('/api/register',register)
 app.post('/api/profile_update',profile_update)
 
 app.post("/api/fuel_quote_post", fuel_quote_post);
+
+app.get("/api/pricing_module", pricing_module);
 
 app.get('/api/profile_info', profile_info)
 
