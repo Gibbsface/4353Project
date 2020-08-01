@@ -48,11 +48,15 @@ class HomePage extends Component {
     	alert("Fuel Quote Submitted");
     };
 
+  newUser = () => {
+    this.setState({ page: "profile" });
+    alert("Please fill out your profile before ordering");
+  };
 
     appletSwitch(s) {
         switch (s) {
             case "quote":
-                return <Quote submitform={this.submitform} />
+                return <Quote submitform={this.submitform} newUser={this.newUser} />
             case "profile":
                 return <Profile />
             case "history":
