@@ -148,6 +148,7 @@ describe("History", async () => {
   });
 });
 
+
 describe("Profile", async () => {
   it("Should return expected profile", async () => {
     let profile = await got("http://localhost:8080/api/profile_info", {
@@ -166,20 +167,33 @@ describe("Profile", async () => {
         address_2: "",
         city: "Houston",
         state: "TX",
-        zipcode: 77204,
+        zipcode: "77204",
       },
     ];
+    /* console.log(profile.body);
+    console.log(JSON.stringify(expectedProfile)); */
     assert(profile.body == JSON.stringify(expectedProfile));
   });
   it("Should update profile", async () => {
     let profile = await got("http://localhost:8080/api/profile_update", {
       body: JSON.stringify({
+        profile: [
+          {
+            id: "test",
+            full_name: "Test Testerson",
+            address_1: "0005 Example Dr",
+            address_2: "",
+            city: "Houston",
+            state: "TX",
+            zipcode: "77204",
+          },
+        ],
         full_name: "Test Testerson",
         address_1: "0005 Example Dr",
         address_2: "",
         city: "Dallas",
         state: "TX",
-        zipcode: 77204,
+        zipcode: "77204",
       }),
       method: "POST",
       headers: {
@@ -206,7 +220,7 @@ describe("Profile", async () => {
         address_2: "",
         city: "Dallas",
         state: "TX",
-        zipcode: 77204,
+        zipcode: "77204",
       },
     ];
     assert(profile.body == JSON.stringify(expectedProfile));
@@ -289,5 +303,20 @@ describe("Fuel Quote Post", async () => {
       },
     ];
     assert(history.body == JSON.stringify(expectedHistory));
+  });
+});
+
+describe("Pricing Module", async () => {
+  it("Should return expected Pricing Module", async () => {
+    let pricing_module = await got("http://localhost:8080/api/pricing_module", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        cookie:
+          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+      },
+    });
+    const expectedpricing_module = 0.01;
+    assert(pricing_module.body == JSON.stringify(expectedpricing_module));
   });
 });
