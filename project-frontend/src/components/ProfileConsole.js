@@ -23,6 +23,10 @@ class ProfileConsole extends React.Component {
           </li>
           : <div></div>}
         <li className="list-item">
+          <h1 className="label">City:</h1>
+          <p className="is-size-4 has-text-right is-italic"> {this.props.profile.city} </p>
+        </li>
+        <li className="list-item">
           <h1 className="label">State:</h1>
           <p className="is-size-4 has-text-right is-italic"> {this.props.profile.state} </p>
         </li>
