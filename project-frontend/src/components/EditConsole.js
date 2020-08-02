@@ -270,7 +270,7 @@ class EditConsole extends React.Component {
       method: "POST",
       mode: "cors",
       credentials: "include",
-      body: JSON.stringify({changes})
+      body: JSON.stringify(changes)
     });
 
     this.props.submit();
