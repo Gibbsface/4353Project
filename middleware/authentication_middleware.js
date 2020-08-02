@@ -22,12 +22,12 @@ const middleware = function (req, res, next) {
     // need to check if token cookie is valid
     try {
         let valid = jwt.verify(req.cookies.token, "secret", { ignoreExpiration: true });
-        if (valid && valid.data) {
+        if (valid && valid.data && valid.data.username) {
             // token is valid, can move on to actual request
             req.username = valid.data.username; 
             next()
         }else{
-            throw new Error();
+            throw new Error(); // will happen only if the token is valid but mistructured -- can't happen
         }
     } catch (e) {
         // catch token invalid error 

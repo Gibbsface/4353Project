@@ -2,7 +2,7 @@ const assert = require("assert");
 const got = require("got");
 const _ = require("underscore");
 const server = require("../server");
-
+let jwt = require("jsonwebtoken");
 let token = "";
 
 describe("Login", async () => {
@@ -124,6 +124,18 @@ describe("Authentication Middleware", () => {
     let body = JSON.parse(result.body);
     assert(!body.success && body.data == "Invalid token");
   });
+  it("should not allow api requests with a malicously crafted token", async () =>{
+    let maliciousToken = jwt.sign("invalid data", "secret");
+    let result = await got("http://localhost:8080/api/quote_history", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        cookie: `token=${maliciousToken}`,
+      },
+    });
+    let body = JSON.parse(result.body);
+    assert(!body.success && body.data == "Invalid token");
+  })
 });
 
 describe("History", async () => {
