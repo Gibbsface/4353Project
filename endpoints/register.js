@@ -1,5 +1,6 @@
 let passwordHash = require('password-hash');
 let connection = require('../database');
+const { connect } = require('../database');
 
 const endpoint = async function (request, response) {
     let { username, password, repassword: extrapass } = request.body;
@@ -20,16 +21,19 @@ const endpoint = async function (request, response) {
             }))
 
         let hashedPass = passwordHash.generate(password, { algorithm: 'sha256', iterations: 5, saltLength: 32 });
-        connection.query(`INSERT INTO user_credentials (id, password) VALUES ("${username}","${hashedPass}")`, (err, res, fields) => {
+        connection.query(
+            `INSERT INTO user_credentials (id, password) VALUES ("${username}","${hashedPass}")`,
+            (err, res, fields) => {
             if (err) {
+                console.log(err);
                 return response.send(err);
             }
             return response.send(JSON.stringify({
                 success: true,
                 data: null
             }))
-        })
-
+        });
+        connection.query(`INSERT INTO client_information (id) VALUE ("${username}")`, (err) => {console.log(err ? err : "")})
     });
 }
 

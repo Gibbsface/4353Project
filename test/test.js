@@ -3,6 +3,8 @@ const got = require("got");
 const _ = require("underscore");
 const server = require("../server");
 let jwt = require("jsonwebtoken");
+const { doesNotMatch } = require("assert");
+
 let token = "";
 
 describe("Login", async () => {
@@ -65,7 +67,6 @@ describe("Register", async () => {
       },
     });
     let body = JSON.parse(result.body);
-    console.log(body.data);
     assert(body.success && body.data == null);
   });
   it("should not allow a user with mismatching passwords to register", async () => {
@@ -96,7 +97,7 @@ describe("Register", async () => {
       },
     });
     let body = JSON.parse(result.body);
-    console.log(body.data);
+    //console.log(body.data);
     assert(!body.success && body.data === "Username exists");
   });
 });
@@ -191,39 +192,28 @@ describe("Profile", async () => {
     const expectedProfile = [
       {
         id: "test",
-        full_name: "Test Testerson",
-        address_1: "0005 Example Dr",
-        address_2: "",
+        name: "Test Testerson",
+        addr1: "0005 Example Dr",
+        addr2: "",
         city: "Houston",
         state: "TX",
-        zipcode: "77204",
+        zip: 77204
       },
     ];
-    /* console.log(profile.body);
-    console.log(JSON.stringify(expectedProfile)); */
+    // console.log(profile.body);
+    // console.log(JSON.stringify(expectedProfile));
     assert(profile.body == JSON.stringify(expectedProfile));
   });
   it("Should update profile", async () => {
     let profile = await got("http://localhost:8080/api/profile_update", {
-      body: JSON.stringify({
-        profile: [
-          {
-            id: "test",
-            full_name: "Test Testerson",
-            address_1: "0005 Example Dr",
-            address_2: "",
-            city: "Houston",
-            state: "TX",
-            zipcode: "77204",
-          },
-        ],
-        full_name: "Test Testerson",
-        address_1: "0005 Example Dr",
-        address_2: "",
-        city: "Dallas",
-        state: "TX",
-        zipcode: "77204",
-      }),
+      body: JSON.stringify([
+        {field: "name", value: "newname"},
+        {field: "addr1", value: "newaddr1"},
+        {field: "addr2", value: "newaddr2"},
+        {field: "city", value: "newcity"},
+        {field: "state", value: "XX"},
+        {field: "zip", value: 12345}
+      ]),
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -231,6 +221,9 @@ describe("Profile", async () => {
           `token=${token}`,
       },
     });
+    let body = JSON.parse(profile.body);
+    //console.log(body);
+    assert(body.success && body.data == null);
   });
   it("Should return updated profile", async () => {
     let profile = await got("http://localhost:8080/api/profile_info", {
@@ -241,17 +234,17 @@ describe("Profile", async () => {
           `token=${token}`,
       },
     });
-    const expectedProfile = [
-      {
-        id: "test",
-        full_name: "Test Testerson",
-        address_1: "0005 Example Dr",
-        address_2: "",
-        city: "Dallas",
-        state: "TX",
-        zipcode: "77204",
-      },
-    ];
+    const expectedProfile = [{
+      id: "test",
+      name: "newname",
+      addr1: "newaddr1",
+      addr2: "newaddr2",
+      city: "newcity",
+      state: "XX",
+      zip: 12345
+    }];
+    // console.log(profile.body);
+    // console.log(JSON.stringify(expectedProfile));
     assert(profile.body == JSON.stringify(expectedProfile));
   });
 });
@@ -342,7 +335,7 @@ describe("Pricing Module", async () => {
       headers: {
         "content-type": "application/json",
         cookie:
-          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+          `token=${token}`,
       },
     });
     const expectedpricing_module = 0.01;
