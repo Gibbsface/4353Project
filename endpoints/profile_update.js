@@ -7,7 +7,8 @@ const endpoint = function (request, response) {
 
   for(c of changes){
     connection.query(
-      `UPDATE client_information SET ${c.field} = "${c.value}"`,
+      `UPDATE client_information SET ${c.field} = "${c.value}" 
+      WHERE id = "${request.username}"`,
       (e) => {e ? console.log(e) : e});
   }
 
