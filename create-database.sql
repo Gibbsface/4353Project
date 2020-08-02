@@ -15,12 +15,12 @@ INSERT INTO `user_credentials` VALUES ('test2','sha256$5adad2b3134d3cc6c91fcf0e4
 
 CREATE TABLE `client_information` (
   `id` varchar(100) NOT NULL,
-  `name` varchar(50) DEFAULT NULL,
-  `addr1` varchar(100) DEFAULT NULL,
-  `addr2` varchar(100) DEFAULT NULL,
-  `city` varchar(100) DEFAULT NULL,
-  `state` char(2) DEFAULT NULL,
-  `zip` int(9) DEFAULT 0,
+  `full_name` varchar(50) NOT NULL,
+  `address_1` varchar(100) NOT NULL,
+  `address_2` varchar(100) DEFAULT NULL,
+  `city` varchar(100) NOT NULL,
+  `state` char(2) NOT NULL,
+  `zipcode` varchar(9) NOT NULL,
   PRIMARY KEY (`id`)
 ); 
 INSERT INTO `client_information` VALUES ('test','Test Testerson','0005 Example Dr','','Houston','TX','77204');
