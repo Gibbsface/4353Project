@@ -65,7 +65,7 @@ export class FuelQuote extends Component {
         this.state.delivery_date >= today
       ) {
         this.setState({ disabled: !this.state.disabled });
-        alert("Locking in variables and Calculating Price (WIP)");
+        alert("Locking in variables and Calculating Price");
         if (this.state.gallons_requested > 1000) {
           let marginC = (this.state.pricing + 0.02 + 0.1) * 1.5 + 1.5;
           this.setState({ margin: marginC });
