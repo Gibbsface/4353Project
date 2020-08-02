@@ -247,6 +247,7 @@ class EditConsole extends React.Component {
       name: this.props.profile.name,
       addr1: this.props.profile.addr1,
       addr2: this.props.profile.addr2,
+      city: this.props.profile.city,
       state: this.props.profile.state,
       zip: this.props.profile.zip
     };
@@ -254,7 +255,7 @@ class EditConsole extends React.Component {
 
   handleClick() {
     const changes = [];
-    const items = ["name", "addr1", "addr2", "state", "zip"];
+    const items = ["name", "addr1", "addr2", "city", "state", "zip"];
     for(var id of items){
       var value = document.getElementById(id).value;
       if(value != this.state[id]){
@@ -302,7 +303,7 @@ class EditConsole extends React.Component {
       <div className="field"> 
         <label className="label">City:</label>
         <div className="control">
-          <input className="input" id="state" type="text" defaultValue={this.props.profile.state}/>
+          <input className="input" id="city" type="text" defaultValue={this.props.profile.city}/>
         </div>
       </div>
 

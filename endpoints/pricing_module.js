@@ -9,8 +9,6 @@ const endpoint = function (request, response) {
         //console.log("Error in Query");
       } else {
         //console.log("Successful Query");
-        //console.log(rows[0]);
-        //console.log(rows);
         if (Object.keys(rows).length !== 0) {
           if (rows[0].state == "TX") {
             margin += 0.02;

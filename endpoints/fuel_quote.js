@@ -2,7 +2,7 @@ let connection = require("../database");
 
 const endpoint = function (request, response) {
   connection.query(
-    `SELECT address_1 FROM client_information WHERE id = '${request.username}'`,
+    `SELECT addr1 FROM client_information WHERE id = '${request.username}'`,
     function (error, rows, fields) {
       if (!!error) {
         //console.log("Error in Query");
