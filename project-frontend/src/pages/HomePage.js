@@ -50,10 +50,6 @@ class HomePage extends Component {
     	this.setState({ page: "history" });
     	alert("Fuel Quote Submitted");
     };
-    submitprofile = () => {
-        this.setState({ page: "quote" });
-    	alert("Profile Submitted");
-    };
 
     newUser = () => {
     	this.setState({ page: "profile" });
@@ -65,7 +61,7 @@ class HomePage extends Component {
             case "quote":
                 return <Quote submitform={this.submitform} newUser={this.newUser} />
             case "profile":
-                return <Profile submitprofile={this.submitprofile} />
+                return <Profile />
             case "history":
                 return <History />
             case "signout":
