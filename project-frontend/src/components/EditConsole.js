@@ -1,261 +1,268 @@
 import React from "react";
 
 const stateList = [
-    {
-      name: "Alabama",
-      abbreviation: "AL",
-    },
-    {
-      name: "Alaska",
-      abbreviation: "AK",
-    },
-    {
-      name: "American Samoa",
-      abbreviation: "AS",
-    },
-    {
-      name: "Arizona",
-      abbreviation: "AZ",
-    },
-    {
-      name: "Arkansas",
-      abbreviation: "AR",
-    },
-    {
-      name: "California",
-      abbreviation: "CA",
-    },
-    {
-      name: "Colorado",
-      abbreviation: "CO",
-    },
-    {
-      name: "Connecticut",
-      abbreviation: "CT",
-    },
-    {
-      name: "Delaware",
-      abbreviation: "DE",
-    },
-    {
-      name: "District Of Columbia",
-      abbreviation: "DC",
-    },
-    {
-      name: "Federated States Of Micronesia",
-      abbreviation: "FM",
-    },
-    {
-      name: "Florida",
-      abbreviation: "FL",
-    },
-    {
-      name: "Georgia",
-      abbreviation: "GA",
-    },
-    {
-      name: "Guam",
-      abbreviation: "GU",
-    },
-    {
-      name: "Hawaii",
-      abbreviation: "HI",
-    },
-    {
-      name: "Idaho",
-      abbreviation: "ID",
-    },
-    {
-      name: "Illinois",
-      abbreviation: "IL",
-    },
-    {
-      name: "Indiana",
-      abbreviation: "IN",
-    },
-    {
-      name: "Iowa",
-      abbreviation: "IA",
-    },
-    {
-      name: "Kansas",
-      abbreviation: "KS",
-    },
-    {
-      name: "Kentucky",
-      abbreviation: "KY",
-    },
-    {
-      name: "Louisiana",
-      abbreviation: "LA",
-    },
-    {
-      name: "Maine",
-      abbreviation: "ME",
-    },
-    {
-      name: "Marshall Islands",
-      abbreviation: "MH",
-    },
-    {
-      name: "Maryland",
-      abbreviation: "MD",
-    },
-    {
-      name: "Massachusetts",
-      abbreviation: "MA",
-    },
-    {
-      name: "Michigan",
-      abbreviation: "MI",
-    },
-    {
-      name: "Minnesota",
-      abbreviation: "MN",
-    },
-    {
-      name: "Mississippi",
-      abbreviation: "MS",
-    },
-    {
-      name: "Missouri",
-      abbreviation: "MO",
-    },
-    {
-      name: "Montana",
-      abbreviation: "MT",
-    },
-    {
-      name: "Nebraska",
-      abbreviation: "NE",
-    },
-    {
-      name: "Nevada",
-      abbreviation: "NV",
-    },
-    {
-      name: "New Hampshire",
-      abbreviation: "NH",
-    },
-    {
-      name: "New Jersey",
-      abbreviation: "NJ",
-    },
-    {
-      name: "New Mexico",
-      abbreviation: "NM",
-    },
-    {
-      name: "New York",
-      abbreviation: "NY",
-    },
-    {
-      name: "North Carolina",
-      abbreviation: "NC",
-    },
-    {
-      name: "North Dakota",
-      abbreviation: "ND",
-    },
-    {
-      name: "Northern Mariana Islands",
-      abbreviation: "MP",
-    },
-    {
-      name: "Ohio",
-      abbreviation: "OH",
-    },
-    {
-      name: "Oklahoma",
-      abbreviation: "OK",
-    },
-    {
-      name: "Oregon",
-      abbreviation: "OR",
-    },
-    {
-      name: "Palau",
-      abbreviation: "PW",
-    },
-    {
-      name: "Pennsylvania",
-      abbreviation: "PA",
-    },
-    {
-      name: "Puerto Rico",
-      abbreviation: "PR",
-    },
-    {
-      name: "Rhode Island",
-      abbreviation: "RI",
-    },
-    {
-      name: "South Carolina",
-      abbreviation: "SC",
-    },
-    {
-      name: "South Dakota",
-      abbreviation: "SD",
-    },
-    {
-      name: "Tennessee",
-      abbreviation: "TN",
-    },
-    {
-      name: "Texas",
-      abbreviation: "TX",
-    },
-    {
-      name: "Utah",
-      abbreviation: "UT",
-    },
-    {
-      name: "Vermont",
-      abbreviation: "VT",
-    },
-    {
-      name: "Virgin Islands",
-      abbreviation: "VI",
-    },
-    {
-      name: "Virginia",
-      abbreviation: "VA",
-    },
-    {
-      name: "Washington",
-      abbreviation: "WA",
-    },
-    {
-      name: "West Virginia",
-      abbreviation: "WV",
-    },
-    {
-      name: "Wisconsin",
-      abbreviation: "WI",
-    },
-    {
-      name: "Wyoming",
-      abbreviation: "WY",
-    },
-  ];
+  {
+    name: "Alabama",
+    abbreviation: "AL",
+  },
+  {
+    name: "Alaska",
+    abbreviation: "AK",
+  },
+  {
+    name: "American Samoa",
+    abbreviation: "AS",
+  },
+  {
+    name: "Arizona",
+    abbreviation: "AZ",
+  },
+  {
+    name: "Arkansas",
+    abbreviation: "AR",
+  },
+  {
+    name: "California",
+    abbreviation: "CA",
+  },
+  {
+    name: "Colorado",
+    abbreviation: "CO",
+  },
+  {
+    name: "Connecticut",
+    abbreviation: "CT",
+  },
+  {
+    name: "Delaware",
+    abbreviation: "DE",
+  },
+  {
+    name: "District Of Columbia",
+    abbreviation: "DC",
+  },
+  {
+    name: "Federated States Of Micronesia",
+    abbreviation: "FM",
+  },
+  {
+    name: "Florida",
+    abbreviation: "FL",
+  },
+  {
+    name: "Georgia",
+    abbreviation: "GA",
+  },
+  {
+    name: "Guam",
+    abbreviation: "GU",
+  },
+  {
+    name: "Hawaii",
+    abbreviation: "HI",
+  },
+  {
+    name: "Idaho",
+    abbreviation: "ID",
+  },
+  {
+    name: "Illinois",
+    abbreviation: "IL",
+  },
+  {
+    name: "Indiana",
+    abbreviation: "IN",
+  },
+  {
+    name: "Iowa",
+    abbreviation: "IA",
+  },
+  {
+    name: "Kansas",
+    abbreviation: "KS",
+  },
+  {
+    name: "Kentucky",
+    abbreviation: "KY",
+  },
+  {
+    name: "Louisiana",
+    abbreviation: "LA",
+  },
+  {
+    name: "Maine",
+    abbreviation: "ME",
+  },
+  {
+    name: "Marshall Islands",
+    abbreviation: "MH",
+  },
+  {
+    name: "Maryland",
+    abbreviation: "MD",
+  },
+  {
+    name: "Massachusetts",
+    abbreviation: "MA",
+  },
+  {
+    name: "Michigan",
+    abbreviation: "MI",
+  },
+  {
+    name: "Minnesota",
+    abbreviation: "MN",
+  },
+  {
+    name: "Mississippi",
+    abbreviation: "MS",
+  },
+  {
+    name: "Missouri",
+    abbreviation: "MO",
+  },
+  {
+    name: "Montana",
+    abbreviation: "MT",
+  },
+  {
+    name: "Nebraska",
+    abbreviation: "NE",
+  },
+  {
+    name: "Nevada",
+    abbreviation: "NV",
+  },
+  {
+    name: "New Hampshire",
+    abbreviation: "NH",
+  },
+  {
+    name: "New Jersey",
+    abbreviation: "NJ",
+  },
+  {
+    name: "New Mexico",
+    abbreviation: "NM",
+  },
+  {
+    name: "New York",
+    abbreviation: "NY",
+  },
+  {
+    name: "North Carolina",
+    abbreviation: "NC",
+  },
+  {
+    name: "North Dakota",
+    abbreviation: "ND",
+  },
+  {
+    name: "Northern Mariana Islands",
+    abbreviation: "MP",
+  },
+  {
+    name: "Ohio",
+    abbreviation: "OH",
+  },
+  {
+    name: "Oklahoma",
+    abbreviation: "OK",
+  },
+  {
+    name: "Oregon",
+    abbreviation: "OR",
+  },
+  {
+    name: "Palau",
+    abbreviation: "PW",
+  },
+  {
+    name: "Pennsylvania",
+    abbreviation: "PA",
+  },
+  {
+    name: "Puerto Rico",
+    abbreviation: "PR",
+  },
+  {
+    name: "Rhode Island",
+    abbreviation: "RI",
+  },
+  {
+    name: "South Carolina",
+    abbreviation: "SC",
+  },
+  {
+    name: "South Dakota",
+    abbreviation: "SD",
+  },
+  {
+    name: "Tennessee",
+    abbreviation: "TN",
+  },
+  {
+    name: "Texas",
+    abbreviation: "TX",
+  },
+  {
+    name: "Utah",
+    abbreviation: "UT",
+  },
+  {
+    name: "Vermont",
+    abbreviation: "VT",
+  },
+  {
+    name: "Virgin Islands",
+    abbreviation: "VI",
+  },
+  {
+    name: "Virginia",
+    abbreviation: "VA",
+  },
+  {
+    name: "Washington",
+    abbreviation: "WA",
+  },
+  {
+    name: "West Virginia",
+    abbreviation: "WV",
+  },
+  {
+    name: "Wisconsin",
+    abbreviation: "WI",
+  },
+  {
+    name: "Wyoming",
+    abbreviation: "WY",
+  },
+];
 
 class EditConsole extends React.Component {
   constructor(props) {
     super(props);
     this.submit = this.props.submit.bind(this);
     this.state = {
-      name: this.props.profile.name,
-      addr1: this.props.profile.addr1,
-      addr2: this.props.profile.addr2,
+      full_name: this.props.profile.full_name,
+      address_1: this.props.profile.address_1,
+      address_2: this.props.profile.address_2,
       city: this.props.profile.city,
       state: this.props.profile.state,
-      zip: this.props.profile.zip,
+      zipcode: this.props.profile.zipcode,
     };
   }
 
   handleClick() {
     const changes = [];
-    const items = ["name", "addr1", "addr2", "city", "state", "zip"];
+    const items = [
+      "full_name",
+      "address_1",
+      "address_2",
+      "city",
+      "state",
+      "zipcode",
+    ];
     for (var id of items) {
       //console.log(id);
       var value = document.getElementById(id).value;
@@ -293,9 +300,9 @@ class EditConsole extends React.Component {
             <div className="control">
               <input
                 className="input"
-                id="name"
+                id="full_name"
                 type="text"
-                defaultValue={this.props.profile.name}
+                defaultValue={this.props.profile.full_name}
                 required
                 maxLength="50"
               />
@@ -307,9 +314,9 @@ class EditConsole extends React.Component {
             <div className="control">
               <input
                 className="input"
-                id="addr1"
+                id="address_1"
                 type="text"
-                defaultValue={this.props.profile.addr1}
+                defaultValue={this.props.profile.address_1}
                 maxLength="100"
                 required
               />
@@ -321,9 +328,9 @@ class EditConsole extends React.Component {
             <div className="control">
               <input
                 className="input"
-                id="addr2"
+                id="address_2"
                 type="text"
-                defaultValue={this.props.profile.addr2}
+                defaultValue={this.props.profile.address_2}
                 maxLength="100"
               />
             </div>
@@ -363,9 +370,9 @@ class EditConsole extends React.Component {
             <div className="control">
               <input
                 className="input"
-                id="zip"
+                id="zipcode"
                 type="text"
-                defaultValue={this.props.profile.zip}
+                defaultValue={this.props.profile.zipcode}
                 maxLength="9"
                 minLength="5"
                 required
