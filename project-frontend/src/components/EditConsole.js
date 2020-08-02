@@ -257,6 +257,7 @@ class EditConsole extends React.Component {
     const changes = [];
     const items = ["name", "addr1", "addr2", "city", "state", "zip"];
     for(var id of items){
+      //console.log(id);
       var value = document.getElementById(id).value;
       if(value != this.state[id]){
         changes.push({
@@ -310,8 +311,8 @@ class EditConsole extends React.Component {
       <div className="field"> 
         <label className="label">State:</label>
         <div className="control">
-          <select className="select">
-            {stateList.map((s)=>(<option key={s.name}>{s.name}</option>))}
+          <select className="select" id="state">
+            {stateList.map((s)=>(<option key={s.name}>{s.abbreviation}</option>))}
           </select>
         </div>
       </div>

@@ -333,8 +333,8 @@ describe("Pricing Module", async () => {
       },
     });
     const expectedpricing_module = 0.01;
-    console.log(pricing_module.body);
-    console.log(JSON.stringify(expectedpricing_module));
+    // console.log(pricing_module.body);
+    // console.log(JSON.stringify(expectedpricing_module));
     assert(pricing_module.body == JSON.stringify(expectedpricing_module));
   });
 });
