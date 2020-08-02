@@ -41,8 +41,8 @@ CREATE TABLE `fuel_quote` (
   KEY `id` (`id`)
 );
 INSERT INTO `fuel_quote` VALUES ('test', 1,'1','newaddr1','2020-06-28',1,5);
-INSERT INTO `fuel_quote` VALUES ('test2', 2,'2','newaddr1','2020-06-28',1,5);
-INSERT INTO `fuel_quote` VALUES ('test', 3, '3','newaddr1','2020-06-28',1,5);
+INSERT INTO `fuel_quote` VALUES ('test2', 2,'1','newaddr1','2020-06-28',1,5);
+INSERT INTO `fuel_quote` VALUES ('test', 3, '1','newaddr1','2020-06-28',1,5);
 
 ALTER TABLE `fuel_quote`
  ADD CONSTRAINT `fuel_quote_fk_1` FOREIGN KEY (`id`) REFERENCES `user_credentials` (`id`);
