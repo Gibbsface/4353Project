@@ -57,11 +57,11 @@ export class FuelQuote extends Component {
   handleCalculation(e) {
     e.preventDefault();
     //console.log(this.state.quote[0].address_1);
-    if (this.state.quote[0].address_1 != "None") {
+    if (this.state.quote[0].address_1 !== "None") {
       if (
         this.state.gallons_requested >= 1 &&
         this.state.gallons_requested <= 1000000 &&
-        this.state.delivery_date != undefined &&
+        this.state.delivery_date !== undefined &&
         this.state.delivery_date >= today
       ) {
         this.setState({ disabled: !this.state.disabled });

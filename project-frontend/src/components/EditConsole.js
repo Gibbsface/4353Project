@@ -259,7 +259,7 @@ class EditConsole extends React.Component {
     for(var id of items){
       //console.log(id);
       var value = document.getElementById(id).value;
-      if(value != this.state[id]){
+      if(value !== this.state[id]){
         changes.push({
           field: id,
           value: value

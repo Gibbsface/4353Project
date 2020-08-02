@@ -1,10 +1,6 @@
 import React from "react";
 
 class ProfileConsole extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render () { return (
     <div className="box">
       <ul className="list">
