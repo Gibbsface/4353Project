@@ -141,7 +141,7 @@ describe("History", async () => {
         id: "test",
         quote_id: 3,
         gallons_requested: 3,
-        address_1: "0005 Example Dr",
+        address_1: "newaddr1",
         delivery_date: "2020-06-28",
         suggested_price: 1,
         total_amount_due: 5,
@@ -150,21 +150,20 @@ describe("History", async () => {
         id: "test",
         quote_id: 1,
         gallons_requested: 1,
-        address_1: "0005 Example Dr",
+        address_1: "newaddr1",
         delivery_date: "2020-06-28",
         suggested_price: 1,
         total_amount_due: 5,
       },
     ];
-    /* console.log(history.body);
-    console.log(JSON.stringify(expectedHistory)); */
+    // console.log(history.body);
+    // console.log(JSON.stringify(expectedHistory));
     console.log(
       "  NOTICE: The sql statement must be rerun for this check to pass!"
     );
     assert(history.body == JSON.stringify(expectedHistory));
   });
 });
-
 
 describe("Profile", async () => {
   it("Should return expected profile", async () => {
@@ -198,7 +197,7 @@ describe("Profile", async () => {
         {field: "addr1", value: "newaddr1"},
         {field: "addr2", value: "newaddr2"},
         {field: "city", value: "newcity"},
-        {field: "state", value: "XX"},
+        {field: "state", value: "TX"},
         {field: "zip", value: 12345}
       ]),
       method: "POST",
@@ -227,7 +226,7 @@ describe("Profile", async () => {
       addr1: "newaddr1",
       addr2: "newaddr2",
       city: "newcity",
-      state: "XX",
+      state: "TX",
       zip: 12345
     }];
     // console.log(profile.body);
@@ -248,9 +247,11 @@ describe("Fuel Quote", async () => {
     });
     const expectedfuel_quote = [
       {
-        address_1: "0005 Example Dr",
+        addr1: "newaddr1",
       },
     ];
+    // console.log(fuel_quote.body);
+    // console.log(JSON.stringify(expectedfuel_quote));
     assert(fuel_quote.body == JSON.stringify(expectedfuel_quote));
   });
 });
@@ -285,18 +286,9 @@ describe("Fuel Quote Post", async () => {
     const expectedHistory = [
       {
         id: "test",
-        quote_id: 4,
-        gallons_requested: 100,
-        address_1: "0005 Example Dr",
-        delivery_date: "2020-07-11",
-        suggested_price: 0,
-        total_amount_due: 0,
-      },
-      {
-        id: "test",
         quote_id: 3,
         gallons_requested: 3,
-        address_1: "0005 Example Dr",
+        address_1: "newaddr1",
         delivery_date: "2020-06-28",
         suggested_price: 1,
         total_amount_due: 5,
@@ -305,12 +297,14 @@ describe("Fuel Quote Post", async () => {
         id: "test",
         quote_id: 1,
         gallons_requested: 1,
-        address_1: "0005 Example Dr",
+        address_1: "newaddr1",
         delivery_date: "2020-06-28",
         suggested_price: 1,
         total_amount_due: 5,
       },
     ];
+    // console.log(history.body);
+    // console.log(JSON.stringify(expectedHistory));
     assert(history.body == JSON.stringify(expectedHistory));
   });
 });
@@ -322,10 +316,12 @@ describe("Pricing Module", async () => {
       headers: {
         "content-type": "application/json",
         cookie:
-          "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE1OTM5OTU2NzcsImV4cCI6MTU5NDA4MjA3N30.TXcORmTYd9Iade3hBy4WqvwXMheuWWidQuYR4_XQSXc",
+          `token=${token}`,
       },
     });
     const expectedpricing_module = 0.01;
+    console.log(pricing_module.body);
+    console.log(JSON.stringify(expectedpricing_module));
     assert(pricing_module.body == JSON.stringify(expectedpricing_module));
   });
 });
