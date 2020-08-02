@@ -153,7 +153,7 @@ describe("History", async () => {
         id: "test",
         quote_id: 3,
         gallons_requested: 1,
-        address_1: "newaddr1",
+        address_1: "0005 Example Dr",
         delivery_date: "2020-06-28",
         suggested_price: 1,
         total_amount_due: 5,
@@ -162,7 +162,7 @@ describe("History", async () => {
         id: "test",
         quote_id: 1,
         gallons_requested: 1,
-        address_1: "newaddr1",
+        address_1: "0005 Example Dr",
         delivery_date: "2020-06-28",
         suggested_price: 1,
         total_amount_due: 5,
@@ -237,7 +237,7 @@ describe("Profile", async () => {
 });
 
 describe("Fuel Quote", async () => {
-  it("Should return expected fuel quote", async () => {
+  it("Should return expected fuel quote address", async () => {
     let fuel_quote = await got("http://localhost:8080/api/fuel_quote", {
       method: "GET",
       headers: {
@@ -269,11 +269,8 @@ describe("Fuel Quote Post", async () => {
         cookie: `token=${token}`,
       },
     });
-    console.log(
-      "  NOTICE: The sql statement must be rerun for the secondary check to pass!"
-    );
   });
-  it("Should return history with fuel quote post", async () => {
+  it("Should return history with new fuel quote post", async () => {
     let history = await got("http://localhost:8080/api/quote_history", {
       method: "GET",
       headers: {
@@ -295,7 +292,7 @@ describe("Fuel Quote Post", async () => {
         id: "test",
         quote_id: 3,
         gallons_requested: 1,
-        address_1: "newaddr1",
+        address_1: "0005 Example Dr",
         delivery_date: "2020-06-28",
         suggested_price: 1,
         total_amount_due: 5,
@@ -304,7 +301,7 @@ describe("Fuel Quote Post", async () => {
         id: "test",
         quote_id: 1,
         gallons_requested: 1,
-        address_1: "newaddr1",
+        address_1: "0005 Example Dr",
         delivery_date: "2020-06-28",
         suggested_price: 1,
         total_amount_due: 5,
