@@ -2,10 +2,6 @@ import React from "react";
 
 const stateList = [
     {
-      name: "State",
-      abbreviation: "",
-    },
-    {
       name: "Alabama",
       abbreviation: "AL",
     },
@@ -246,7 +242,7 @@ const stateList = [
 class EditConsole extends React.Component {
   constructor(props){
     super(props);
-    this.edit = this.props.edit.bind(this);
+    this.submit = this.props.submit.bind(this);
     this.state = {
       name: this.props.profile.name,
       addr1: this.props.profile.addr1,
@@ -277,7 +273,7 @@ class EditConsole extends React.Component {
       body: JSON.stringify({changes})
     });
 
-    this.props.edit();
+    this.props.submit();
   }
 
   render() { return (
@@ -304,9 +300,18 @@ class EditConsole extends React.Component {
       </div>
 
       <div className="field"> 
-        <label className="label">State:</label>
+        <label className="label">City:</label>
         <div className="control">
           <input className="input" id="state" type="text" defaultValue={this.props.profile.state}/>
+        </div>
+      </div>
+
+      <div className="field"> 
+        <label className="label">State:</label>
+        <div className="control">
+          <select className="select">
+            {stateList.map((s)=>(<option key={s.name}>{s.name}</option>))}
+          </select>
         </div>
       </div>
 
