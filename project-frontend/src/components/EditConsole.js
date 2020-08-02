@@ -240,7 +240,7 @@ const stateList = [
   ];
 
 class EditConsole extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.submit = this.props.submit.bind(this);
     this.state = {
@@ -249,21 +249,22 @@ class EditConsole extends React.Component {
       addr2: this.props.profile.addr2,
       city: this.props.profile.city,
       state: this.props.profile.state,
-      zip: this.props.profile.zip
+      zip: this.props.profile.zip,
     };
   }
 
   handleClick() {
     const changes = [];
     const items = ["name", "addr1", "addr2", "city", "state", "zip"];
-    for(var id of items){
+    for (var id of items) {
       //console.log(id);
       var value = document.getElementById(id).value;
-      if(value !== this.state[id]){
+      if (value != this.state[id]) {
         changes.push({
           field: id,
-          value: value
-        });}
+          value: value,
+        });
+      }
     }
     fetch("http://localhost:8080/api/profile_update", {
       headers: new Headers({
@@ -272,64 +273,112 @@ class EditConsole extends React.Component {
       method: "POST",
       mode: "cors",
       credentials: "include",
-      body: JSON.stringify(changes)
+      body: JSON.stringify(changes),
     });
-
     this.props.submit();
+    window.location.reload();
   }
 
-  render() { return (
-    <div className="box">
-      <div className="field"> 
-        <label className="label">Full Name:</label>
-        <div className="control">
-          <input className="input" id="name" type="text" defaultValue={this.props.profile.name}/>
-        </div>
-      </div>
+  render() {
+    return (
+      <div className="container">
+        <form
+          className="box"
+          onSubmit={() => {
+            this.handleClick();
+          }}
+        >
+          <div className="field">
+            <label className="label">Full Name:</label>
+            <div className="control">
+              <input
+                className="input"
+                id="name"
+                type="text"
+                defaultValue={this.props.profile.name}
+                required
+                maxLength="50"
+              />
+            </div>
+          </div>
 
-      <div className="field"> 
-        <label className="label">Address:</label>
-        <div className="control">
-          <input className="input" id="addr1" type="text" defaultValue={this.props.profile.addr1}/>
-        </div>
-      </div>
+          <div className="field">
+            <label className="label">Address:</label>
+            <div className="control">
+              <input
+                className="input"
+                id="addr1"
+                type="text"
+                defaultValue={this.props.profile.addr1}
+                maxLength="100"
+                required
+              />
+            </div>
+          </div>
 
-      <div className="field"> 
-        <label className="label">Adress (line 2):</label>
-        <div className="control">
-          <input className="input" id="addr2" type="text" defaultValue={this.props.profile.addr2}/>
-        </div>
-      </div>
+          <div className="field">
+            <label className="label">Adress (line 2):</label>
+            <div className="control">
+              <input
+                className="input"
+                id="addr2"
+                type="text"
+                defaultValue={this.props.profile.addr2}
+                maxLength="100"
+              />
+            </div>
+          </div>
 
-      <div className="field"> 
-        <label className="label">City:</label>
-        <div className="control">
-          <input className="input" id="city" type="text" defaultValue={this.props.profile.city}/>
-        </div>
-      </div>
+          <div className="field">
+            <label className="label">City:</label>
+            <div className="control">
+              <input
+                className="input"
+                id="city"
+                type="text"
+                defaultValue={this.props.profile.city}
+                required
+                maxLength="100"
+              />
+            </div>
+          </div>
 
-      <div className="field"> 
-        <label className="label">State:</label>
-        <div className="control">
-          <select className="select" id="state">
-            {stateList.map((s)=>(<option key={s.name}>{s.abbreviation}</option>))}
-          </select>
-        </div>
-      </div>
+          <div className="field">
+            <label className="label">State:</label>
+            <div className="control">
+              <select
+                className="select"
+                id="state"
+                defaultValue={this.props.profile.state}
+              >
+                {stateList.map((s) => (
+                  <option key={s.name}>{s.abbreviation}</option>
+                ))}
+              </select>
+            </div>
+          </div>
 
-      <div className="field"> 
-        <label className="label">Zip Code:</label>
-        <div className="control">
-          <input className="input" id="zip" type="number" defaultValue={this.props.profile.zip}/>
-        </div>
-      </div>
+          <div className="field">
+            <label className="label">Zip Code:</label>
+            <div className="control">
+              <input
+                className="input"
+                id="zip"
+                type="text"
+                defaultValue={this.props.profile.zip}
+                maxLength="9"
+                minLength="5"
+                required
+              />
+            </div>
+          </div>
 
-      <div className="has-text-centered">
-        <button className="button is-danger" onClick={()=>{this.handleClick()}}>
-          Submit Changes
-        </button>
+          <div className="has-text-centered">
+            <button className="button is-danger">Submit Changes</button>
+          </div>
+        </form>
       </div>
-    </div>);
+    );
   }
 }
 
