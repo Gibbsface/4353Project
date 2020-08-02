@@ -34,7 +34,7 @@ describe("Login", async () => {
       },
     });
     let body = JSON.parse(result.body);
-    assert(!body.success && body.data == "No such user");
+    assert(!body.success && body.data == "No such user found");
   });
   it("should return {success:true, data:some token} for good creds", async () => {
     let result = await got("http://localhost:8080/api/login", {
@@ -145,15 +145,14 @@ describe("History", async () => {
       method: "GET",
       headers: {
         "content-type": "application/json",
-        cookie:
-          `token=${token}`,
+        cookie: `token=${token}`,
       },
     });
     const expectedHistory = [
       {
         id: "test",
         quote_id: 3,
-        gallons_requested: 3,
+        gallons_requested: 1,
         address_1: "newaddr1",
         delivery_date: "2020-06-28",
         suggested_price: 1,
@@ -169,11 +168,6 @@ describe("History", async () => {
         total_amount_due: 5,
       },
     ];
-    // console.log(history.body);
-    // console.log(JSON.stringify(expectedHistory));
-    console.log(
-      "  NOTICE: The sql statement must be rerun for this check to pass!"
-    );
     assert(history.body == JSON.stringify(expectedHistory));
   });
 });
@@ -184,44 +178,39 @@ describe("Profile", async () => {
       method: "GET",
       headers: {
         "content-type": "application/json",
-        cookie:
-          `token=${token}`,
+        cookie: `token=${token}`,
       },
     });
     const expectedProfile = [
       {
         id: "test",
-        name: "Test Testerson",
-        addr1: "0005 Example Dr",
-        addr2: "",
+        full_name: "Test Testerson",
+        address_1: "0005 Example Dr",
+        address_2: "",
         city: "Houston",
         state: "TX",
-        zip: 77204
+        zipcode: "77204",
       },
     ];
-    // console.log(profile.body);
-    // console.log(JSON.stringify(expectedProfile));
     assert(profile.body == JSON.stringify(expectedProfile));
   });
   it("Should update profile", async () => {
     let profile = await got("http://localhost:8080/api/profile_update", {
       body: JSON.stringify([
-        {field: "name", value: "newname"},
-        {field: "addr1", value: "newaddr1"},
-        {field: "addr2", value: "newaddr2"},
-        {field: "city", value: "newcity"},
-        {field: "state", value: "TX"},
-        {field: "zip", value: 12345}
+        { field: "full_name", value: "newname" },
+        { field: "address_1", value: "newaddr1" },
+        { field: "address_2", value: "newaddr2" },
+        { field: "city", value: "newcity" },
+        { field: "state", value: "TX" },
+        { field: "zipcode", value: "12345" },
       ]),
       method: "POST",
       headers: {
         "content-type": "application/json",
-        cookie:
-          `token=${token}`,
+        cookie: `token=${token}`,
       },
     });
     let body = JSON.parse(profile.body);
-    //console.log(body);
     assert(body.success && body.data == null);
   });
   it("Should return updated profile", async () => {
@@ -229,21 +218,20 @@ describe("Profile", async () => {
       method: "GET",
       headers: {
         "content-type": "application/json",
-        cookie:
-          `token=${token}`,
+        cookie: `token=${token}`,
       },
     });
-    const expectedProfile = [{
-      id: "test",
-      name: "newname",
-      addr1: "newaddr1",
-      addr2: "newaddr2",
-      city: "newcity",
-      state: "TX",
-      zip: 12345
-    }];
-    // console.log(profile.body);
-    // console.log(JSON.stringify(expectedProfile));
+    const expectedProfile = [
+      {
+        id: "test",
+        full_name: "newname",
+        address_1: "newaddr1",
+        address_2: "newaddr2",
+        city: "newcity",
+        state: "TX",
+        zipcode: "12345",
+      },
+    ];
     assert(profile.body == JSON.stringify(expectedProfile));
   });
 });
@@ -254,17 +242,14 @@ describe("Fuel Quote", async () => {
       method: "GET",
       headers: {
         "content-type": "application/json",
-        cookie:
-          `token=${token}`,
+        cookie: `token=${token}`,
       },
     });
     const expectedfuel_quote = [
       {
-        addr1: "newaddr1",
+        address_1: "newaddr1",
       },
     ];
-    // console.log(fuel_quote.body);
-    // console.log(JSON.stringify(expectedfuel_quote));
     assert(fuel_quote.body == JSON.stringify(expectedfuel_quote));
   });
 });
@@ -273,14 +258,15 @@ describe("Fuel Quote Post", async () => {
   it("Should post fuel quote", async () => {
     let fuel_quote = await got("http://localhost:8080/api/fuel_quote_post", {
       body: JSON.stringify({
-        gallons_requested: 100,
-        delivery_date: "2020-07-11",
+        gallons_requested: 1500,
+        delivery_date: "2020-08-11",
+        margin: 1.695,
+        total: 2542.5,
       }),
       method: "POST",
       headers: {
         "content-type": "application/json",
-        cookie:
-          `token=${token}`,
+        cookie: `token=${token}`,
       },
     });
     console.log(
@@ -292,15 +278,23 @@ describe("Fuel Quote Post", async () => {
       method: "GET",
       headers: {
         "content-type": "application/json",
-        cookie:
-          `token=${token}`,
+        cookie: `token=${token}`,
       },
     });
     const expectedHistory = [
       {
         id: "test",
+        quote_id: 4,
+        gallons_requested: 1500,
+        address_1: "newaddr1",
+        delivery_date: "2020-08-11",
+        suggested_price: 1.695,
+        total_amount_due: 2542.5,
+      },
+      {
+        id: "test",
         quote_id: 3,
-        gallons_requested: 3,
+        gallons_requested: 1,
         address_1: "newaddr1",
         delivery_date: "2020-06-28",
         suggested_price: 1,
@@ -316,8 +310,6 @@ describe("Fuel Quote Post", async () => {
         total_amount_due: 5,
       },
     ];
-    // console.log(history.body);
-    // console.log(JSON.stringify(expectedHistory));
     assert(history.body == JSON.stringify(expectedHistory));
   });
 });
@@ -328,13 +320,10 @@ describe("Pricing Module", async () => {
       method: "GET",
       headers: {
         "content-type": "application/json",
-        cookie:
-          `token=${token}`,
+        cookie: `token=${token}`,
       },
     });
     const expectedpricing_module = 0.01;
-    // console.log(pricing_module.body);
-    // console.log(JSON.stringify(expectedpricing_module));
     assert(pricing_module.body == JSON.stringify(expectedpricing_module));
   });
 });
