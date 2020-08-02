@@ -247,15 +247,25 @@ class EditConsole extends React.Component {
   constructor(props){
     super(props);
     this.edit = this.props.edit.bind(this);
+    this.state = {
+      name: this.props.profile.name,
+      addr1: this.props.profile.addr1,
+      addr2: this.props.profile.addr2,
+      state: this.props.profile.state,
+      zip: this.props.profile.zip
+    };
   }
 
   handleClick() {
-    const updatedProfile = {
-      name: document.getElementById("name").value,
-      addr1: document.getElementById("addr1").value,
-      addr2: document.getElementById("addr2").value,
-      state: document.getElementById("state").value,
-      zip: document.getElementById("zip").value,
+    const changes = [];
+    const items = ["name", "addr1", "addr2", "state", "zip"];
+    for(var id of items){
+      var value = document.getElementById(id).value;
+      if(value != this.state[id]){
+        changes.push({
+          field: id,
+          value: value
+        });}
     }
     fetch("http://localhost:8080/api/profile_update", {
       headers: new Headers({
@@ -264,8 +274,10 @@ class EditConsole extends React.Component {
       method: "POST",
       mode: "cors",
       credentials: "include",
-      body: JSON.stringify(updatedProfile)
+      body: JSON.stringify({changes})
     });
+
+    this.props.edit();
   }
 
   render() { return (
@@ -273,40 +285,40 @@ class EditConsole extends React.Component {
       <div className="field"> 
         <label className="label">Full Name:</label>
         <div className="control">
-          <input className="input" id="name" type="text" placeholder={this.props.profile.name}/>
+          <input className="input" id="name" type="text" defaultValue={this.props.profile.name}/>
         </div>
       </div>
 
       <div className="field"> 
         <label className="label">Address:</label>
         <div className="control">
-          <input className="input" id="addr1" type="text" placeholder={this.props.profile.addr1}/>
+          <input className="input" id="addr1" type="text" defaultValue={this.props.profile.addr1}/>
         </div>
       </div>
 
       <div className="field"> 
         <label className="label">Adress (line 2):</label>
         <div className="control">
-          <input className="input" id="addr2" type="text" placeholder={this.props.profile.addr2}/>
+          <input className="input" id="addr2" type="text" defaultValue={this.props.profile.addr2}/>
         </div>
       </div>
 
       <div className="field"> 
         <label className="label">State:</label>
         <div className="control">
-          <input className="input" id="state" type="text" placeholder={this.props.profile.state}/>
+          <input className="input" id="state" type="text" defaultValue={this.props.profile.state}/>
         </div>
       </div>
 
       <div className="field"> 
         <label className="label">Zip Code:</label>
         <div className="control">
-          <input className="input" id="zip" type="text" placeholder={this.props.profile.zip}/>
+          <input className="input" id="zip" type="number" defaultValue={this.props.profile.zip}/>
         </div>
       </div>
 
       <div className="has-text-centered">
-        <button className="button is-danger" onClick={()=>{this.props.edit(); this.handleClick()}}>
+        <button className="button is-danger" onClick={()=>{this.handleClick()}}>
           Submit Changes
         </button>
       </div>

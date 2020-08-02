@@ -5,9 +5,8 @@ const endpoint = function (request, response) {
     `SELECT * FROM client_information WHERE id = '${request.username}'`,
     function (error, rows, fields) {
       if (!!error) {
-        //console.log("Error in Query");
+        console.log("Error in query for Profile_info...", request.username);
       } else {
-        //console.log("Successful Query");
         response.contentType("application/json");
         response.json(rows);
       }
