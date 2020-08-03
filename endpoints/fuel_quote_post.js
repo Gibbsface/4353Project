@@ -4,7 +4,7 @@ const endpoint = async function (request, response) {
   let { gallons_requested, delivery_date, margin, total } = request.body;
   //Sending address to frontend
   connection.query(
-    `SELECT addr1 FROM client_information WHERE id = '${request.username}'`,
+    `SELECT address_1 FROM client_information WHERE id = '${request.username}'`,
     function (error, rows, fields) {
       let address = rows[0].address_1;
       //console.log(delivery_date);
